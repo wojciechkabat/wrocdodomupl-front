@@ -1,0 +1,60 @@
+<div class="sidePanelTitle"></div>
+<div class="sidePanelContent">
+  <img [src]="pet.pictureUrl"/>
+
+  <div class="row pet-detail">
+    <div class="col col-2 text-center">
+      <fa-icon [icon]="faPaw" size="lg"></fa-icon>
+    </div>
+    <div class="col">
+      {{pet.name}}
+    </div>
+  </div>
+
+  <div class="row pet-detail">
+    <div class="col col-2 text-center">
+      <fa-icon [icon]="faVenusMars" size="lg"></fa-icon>
+    </div>
+    <div class="col">
+      {{pet.gender}}
+    </div>
+  </div>
+
+  <div class="row pet-detail" *ngIf="pet.phoneNumber">
+    <div class="col col-2 text-center">
+      <fa-icon [icon]="faPhone" size="lg"></fa-icon>
+    </div>
+    <div class="col">
+      {{pet.phoneNumber}}
+    </div>
+  </div>
+
+  <div class="row pet-detail" *ngIf="pet.email">
+    <div class="col col-2 text-center">
+      <fa-icon [icon]="faEnvelope" size="lg"></fa-icon>
+    </div>
+    <div class="col">
+      {{pet.email}}
+    </div>
+  </div>
+
+
+  <div class="row pet-detail">
+    <div class="col col-2 text-center">
+      <fa-icon [icon]="faCalendarAlt" size="lg"></fa-icon>
+    </div>
+    <div class="col">
+      {{pet.lastSeen | date: 'd MMMM yyyy'}}
+    </div>
+  </div>
+
+  <div class="row pet-detail">
+    <div class="col col-2 text-center">
+      <fa-icon [icon]="faInfo" size="lg"></fa-icon>
+    </div>
+    <div class="col">
+      {{pet.additionalInfo}}
+    </div>
+  </div>
+
+</div>

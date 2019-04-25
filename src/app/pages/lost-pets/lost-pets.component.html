@@ -1,0 +1,27 @@
+<agm-map [latitude]="currentUserCoordinates.latitude"
+         [zoom]="10"
+         [disableDefaultUI]="true"
+         [streetViewControl]="false"
+         [zoomControl]="false"
+         [clickableIcons]="false"
+         (mapClick)="mapClicked()"
+         [longitude]="currentUserCoordinates.longitude">
+  <agm-marker
+    *ngFor="let pet of lostPets"
+    (markerClick)="petMarkerClicked(pet)"
+    [latitude]="pet.coordinates.latitude"
+    [longitude]="pet.coordinates.longitude">
+  </agm-marker>
+</agm-map>
+
+<div #lostPetInfoSidePanel class="sidepanel">
+  <a class="closebtn" (click)="closeDetails()">&times;</a>
+  <app-lost-pet-side-panel *ngIf="selectedPet" [pet]="selectedPet"></app-lost-pet-side-panel>
+</div>
+
+<div class="add-button-wrapper">
+  <button type="button" class="btn btn-danger add-button" (click)="openAddDialog()">
+      <fa-icon [icon]="faPlusCircle" size="2x" class="fa-pull-left"></fa-icon>
+      <div class="add-button-text">Report a missing pet</div>
+  </button>
+</div>

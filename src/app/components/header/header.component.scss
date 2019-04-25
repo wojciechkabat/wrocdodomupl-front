@@ -1,0 +1,29 @@
+@import "../../globalstyles.scss";
+
+.logo-pic {
+  height: 45px;
+}
+
+.logo-name {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+  letter-spacing: 2px;
+}
+
+.nav-link {
+  color: white !important;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+
+.nav-link:hover {
+  color: map-get($custom-colors, yellow-color) !important;
+  border-bottom: solid 2px #f6b93b;
+}
+
+.active {
+  color: map-get($custom-colors, yellow-color) !important;
+  border-bottom: solid 2px map-get($custom-colors, yellow-color);
+}

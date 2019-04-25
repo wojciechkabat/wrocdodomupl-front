@@ -1,0 +1,63 @@
+agm-map {
+  height: calc(100vh - 71px);
+}
+
+.sidepanel {
+  height: calc(100vh - 71px);
+  width: 0;
+  max-width: 400px;
+  position: fixed;
+  z-index: 1;
+  top: 71px;
+  left: 0;
+  background-color: rgba(52, 58, 64, 0.95);
+  overflow-x: hidden;
+  transition: 0.5s;
+  color: white;
+}
+
+.sidepanel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.add-button-wrapper {
+  position: fixed;
+  z-index: 1;
+  bottom: 70px;
+  right: 50px;
+}
+
+@media (max-width: 700px) {
+  .add-button-wrapper {
+    position: fixed;
+    z-index: 1;
+    bottom: 30px;
+    width: 100%;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.add-button {
+  background-image: linear-gradient(to right top, #fd495e, #fe525b, #fe5b58, #fe6456, #fe6c54);
+  width: 300px;
+  height: 60px;
+  border-radius: 30px;
+  font-size: 1.3rem;
+  letter-spacing: 0.7px;
+
+  .add-button-text {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.add-button:hover {
+  background-image: linear-gradient(to right top, #fd495e, #fe525b, #fe525b, #fd495e);
+}
