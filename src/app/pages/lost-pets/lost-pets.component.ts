@@ -20,6 +20,7 @@ export class LostPetsComponent implements OnInit {
   faPlusCircle = faPlusCircle;
 
   @ViewChild('lostPetInfoSidePanel') lostPetInfoSidePanel;
+  @ViewChild('addPetButton') addPetButton;
 
   constructor(private geoLocationService: GeoLocationService,
               private modalService: NgbModal,
@@ -40,11 +41,15 @@ export class LostPetsComponent implements OnInit {
   petMarkerClicked(pet: LostPet) {
     this.selectedPet = pet;
     this.lostPetInfoSidePanel.nativeElement.style.width = "100%";
+    this.addPetButton.nativeElement.classList.remove('button-fade-in');
+    this.addPetButton.nativeElement.classList.add('button-fade-out');
   }
 
   closeDetails() {
     this.selectedPet = null;
     this.lostPetInfoSidePanel.nativeElement.style.width = "0";
+    this.addPetButton.nativeElement.classList.remove('button-fade-out');
+    this.addPetButton.nativeElement.classList.add('button-fade-in');
   }
 
   mapClicked() {

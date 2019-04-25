@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WelcomeComponent } from './welcome/welcome.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -16,6 +15,7 @@ import { ApiService } from "./services/api.service";
 import { LostPetService } from "./services/lost-pet.service";
 import { HttpClientModule } from "@angular/common/http";
 import { CreateLostPetModalComponent } from './components/create-lost-pet-modal/create-lost-pet-modal.component';
+import { WelcomeComponent } from "./pages/welcome/welcome.component";
 
 @NgModule({
   declarations: [

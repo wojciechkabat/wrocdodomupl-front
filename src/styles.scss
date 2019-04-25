@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+.page-wrapper {
+  height: calc(100vh - 71px);
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url(assets/fonts/Poppins-Regular.ttf) format("opentype");
+}
+
+* {
+  font-family: "Poppins", serif;
+}
