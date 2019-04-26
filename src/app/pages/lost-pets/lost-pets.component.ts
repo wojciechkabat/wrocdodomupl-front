@@ -6,6 +6,7 @@ import { LostPetService } from "../../services/lost-pet.service";
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { CreateLostPetModalComponent } from "../../components/create-lost-pet-modal/create-lost-pet-modal.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { AgmMap } from "@agm/core";
 
 @Component({
   selector: 'app-lost-pets',
@@ -19,6 +20,7 @@ export class LostPetsComponent implements OnInit {
 
   faPlusCircle = faPlusCircle;
 
+  @ViewChild('agmMap') agmMap: AgmMap;
   @ViewChild('lostPetInfoSidePanel') lostPetInfoSidePanel;
   @ViewChild('addPetButton') addPetButton;
 
@@ -38,7 +40,7 @@ export class LostPetsComponent implements OnInit {
       });
   }
 
-  petMarkerClicked(pet: LostPet) {
+  petSelected(pet: LostPet) {
     this.selectedPet = pet;
     this.lostPetInfoSidePanel.nativeElement.style.width = "100%";
     this.addPetButton.nativeElement.classList.remove('button-fade-in');
@@ -65,6 +67,17 @@ export class LostPetsComponent implements OnInit {
   }
 
   openAddDialog() {
-    const modalRef = this.modalService.open(CreateLostPetModalComponent);
+    const modalRef = this.modalService.open(CreateLostPetModalComponent, { windowClass : "add-pet-modal"});
+    modalRef.result.then((savedPet: LostPet) => {
+      if(savedPet) {
+        this.lostPets.push(savedPet);
+        this.petSelected(savedPet);
+        this.recenterMapToGivenCoordinates(savedPet.coordinates);
+      }
+    });
+  }
+
+  private recenterMapToGivenCoordinates(coordinates: Coordinates) {
+    this.agmMap.triggerResize().then(() =>  this.agmMap._mapsWrapper.setCenter({lat: coordinates.latitude, lng: coordinates.longitude}))
   }
 }

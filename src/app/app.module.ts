@@ -16,6 +16,9 @@ import { LostPetService } from "./services/lost-pet.service";
 import { HttpClientModule } from "@angular/common/http";
 import { CreateLostPetModalComponent } from './components/create-lost-pet-modal/create-lost-pet-modal.component';
 import { WelcomeComponent } from "./pages/welcome/welcome.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatFormFieldModule, MatStepperModule } from "@angular/material";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -34,11 +37,15 @@ import { WelcomeComponent } from "./pages/welcome/welcome.component";
     BrowserModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
-      apiKey: ''
+      apiKey: 'AIzaSyC3cX9j_OEkbS4WmGtsfUpkp4GQPebNs7c'
     }),
     FontAwesomeModule,
     NgbModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatStepperModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     GeoLocationService,

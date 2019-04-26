@@ -13,4 +13,8 @@ export class LostPetService {
   getLostPetsFromLast30Days(): Observable<LostPet[]> {
     return this.apiService.get('pets/lost');
   }
+
+  persistLostPet(lostPet: LostPet): Observable<LostPet> {
+    return this.apiService.post('pets/lost', lostPet);
+  }
 }

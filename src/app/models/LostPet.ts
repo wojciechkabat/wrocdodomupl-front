@@ -9,5 +9,6 @@ export class LostPet {
   phoneNumber: string;
   email: string;
   gender: string;
+  type: string;
   coordinates: Coordinates;
 }

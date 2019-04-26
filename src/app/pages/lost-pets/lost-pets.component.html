@@ -1,15 +1,17 @@
 <div class="page-wrapper">
-  <agm-map [latitude]="51"
-           [zoom]="10"
-           [disableDefaultUI]="true"
-           [streetViewControl]="false"
-           [zoomControl]="false"
-           [clickableIcons]="false"
-           (mapClick)="mapClicked()"
-           [longitude]="21">
+  <agm-map
+    #agmMap
+    [latitude]="51"
+    [zoom]="10"
+    [disableDefaultUI]="true"
+    [streetViewControl]="false"
+    [zoomControl]="false"
+    [clickableIcons]="false"
+    (mapClick)="mapClicked()"
+    [longitude]="21">
     <agm-marker
       *ngFor="let pet of lostPets"
-      (markerClick)="petMarkerClicked(pet)"
+      (markerClick)="petSelected(pet)"
       [latitude]="pet.coordinates.latitude"
       [longitude]="pet.coordinates.longitude">
     </agm-marker>
