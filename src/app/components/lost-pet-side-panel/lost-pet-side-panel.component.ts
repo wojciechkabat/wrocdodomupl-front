@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LostPet } from "../../models/LostPet";
-import { faPaw, faVenusMars, faInfo, faPhone, faEnvelope, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTag, faVenusMars, faInfo, faPhone, faEnvelope, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-lost-pet-side-panel',
   templateUrl: './lost-pet-side-panel.component.html',
@@ -11,7 +11,7 @@ export class LostPetSidePanelComponent implements OnInit {
   @Input()
   pet: LostPet;
 
-  faPaw = faPaw;
+  faTag = faTag;
   faVenusMars = faVenusMars;
   faInfo = faInfo;
   faEnvelope = faEnvelope;
@@ -21,6 +21,10 @@ export class LostPetSidePanelComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  resolveGender(gender) {
+    return gender === 'MALE'? 'Samiec' : 'Samica';
   }
 
 }

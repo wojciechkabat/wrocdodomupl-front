@@ -14,27 +14,35 @@ import { AgmMap } from "@agm/core";
   styleUrls: ['./lost-pets.component.scss']
 })
 export class LostPetsComponent implements OnInit {
+  mapCenterLatitude: number;
+  mapCenterLongitude: number;
+  mapZoom: number;
+
+  agmMap: AgmMap;
   currentUserCoordinates: Coordinates;
   lostPets: LostPet[];
   selectedPet: LostPet;
 
   faPlusCircle = faPlusCircle;
 
-  @ViewChild('agmMap') agmMap: AgmMap;
   @ViewChild('lostPetInfoSidePanel') lostPetInfoSidePanel;
   @ViewChild('addPetButton') addPetButton;
 
   constructor(private geoLocationService: GeoLocationService,
               private modalService: NgbModal,
-              private lostPetsService: LostPetService) { }
+              private lostPetsService: LostPetService) {
+  }
 
   ngOnInit(): void {
+    this.mapCenterLatitude = 51;
+    this.mapCenterLongitude = 21;
+    this.mapZoom = 10;
     this.initializeLostPets();
 
     this.geoLocationService.getPosition().subscribe(
       (pos: Position) => {
         this.currentUserCoordinates = {
-          latitude:  +(pos.coords.latitude),
+          latitude: +(pos.coords.latitude),
           longitude: +(pos.coords.longitude)
         };
       });
@@ -61,23 +69,29 @@ export class LostPetsComponent implements OnInit {
 
   initializeLostPets() {
     this.lostPetsService.getLostPetsFromLast30Days().subscribe(pets => {
-      this.lostPets = pets;
+        this.lostPets = pets;
       }
     );
   }
 
   openAddDialog() {
-    const modalRef = this.modalService.open(CreateLostPetModalComponent, { windowClass : "add-pet-modal"});
+    const modalRef = this.modalService.open(CreateLostPetModalComponent, {windowClass: "add-pet-modal"});
     modalRef.result.then((savedPet: LostPet) => {
-      if(savedPet) {
+      if (savedPet) {
         this.lostPets.push(savedPet);
         this.petSelected(savedPet);
-        this.recenterMapToGivenCoordinates(savedPet.coordinates);
+        this.recenterMapToPosition(savedPet.coordinates);
       }
     });
   }
 
-  private recenterMapToGivenCoordinates(coordinates: Coordinates) {
-    this.agmMap.triggerResize().then(() =>  this.agmMap._mapsWrapper.setCenter({lat: coordinates.latitude, lng: coordinates.longitude}))
+  recenterMapToPosition(coordinates: Coordinates) {
+    this.mapCenterLongitude = coordinates.longitude;
+    this.mapCenterLatitude = coordinates.latitude;
+    this.mapZoom = 15;
+  }
+
+  mapReady(map) {
+    this.agmMap = map;
   }
 }

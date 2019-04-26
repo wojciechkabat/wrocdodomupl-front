@@ -4,7 +4,7 @@
 
   <div class="row pet-detail">
     <div class="col col-2 text-center">
-      <fa-icon [icon]="faPaw" size="lg"></fa-icon>
+      <fa-icon [icon]="faTag" size="lg"></fa-icon>
     </div>
     <div class="col">
       {{pet.name}}
@@ -16,7 +16,7 @@
       <fa-icon [icon]="faVenusMars" size="lg"></fa-icon>
     </div>
     <div class="col">
-      {{pet.gender}}
+      {{resolveGender(pet.gender)}}
     </div>
   </div>
 

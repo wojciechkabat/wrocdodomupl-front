@@ -34,4 +34,8 @@ export class ApiService {
   deleteHttp<T>(endpoint: string): Observable<T> {
     return this.http.delete<T>(this.url + '/' + endpoint, {responseType: 'json'});
   }
+
+  postExternal<T>(endpointAddress: string, body: any, headers?: HttpHeaders): Observable<T> {
+    return this.http.post<T>(endpointAddress, body, {headers: headers, responseType: 'json'});
+  }
 }
