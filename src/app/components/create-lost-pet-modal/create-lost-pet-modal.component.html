@@ -135,10 +135,14 @@
       <div class="mt-2">
         <button type="button" class="btn form-button fa-pull-left" matStepperPrevious>Wstecz</button>
         <button type="button" class="btn form-button fa-pull-right"
+                *ngIf="!isDataLoading"
                 (click)="persistLostPet()"
                 [disabled]="!isReadyToSave()">
           Publikuj
         </button>
+        <div *ngIf="isDataLoading" class="fa-pull-right">
+          <img height="30" src="../../../assets/img/spinner.gif"/>
+        </div>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

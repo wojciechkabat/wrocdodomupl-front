@@ -20,6 +20,7 @@ export class CreateLostPetModalComponent implements OnInit {
   petDataForm: FormGroup;
 
   loadedPictures = [];
+  isDataLoading: boolean;
 
   lostPet: LostPet;
 
@@ -50,7 +51,7 @@ export class CreateLostPetModalComponent implements OnInit {
       type: [Constants.PET_TYPE.DOG, Validators.required],
       gender: [Constants.GENDER.MALE, Validators.required],
       phoneNumber: [''],
-      email: [''],
+      email: ['', Validators.required],
       additionalInfo: ['']
     });
   }
@@ -90,6 +91,7 @@ export class CreateLostPetModalComponent implements OnInit {
 
   persistLostPet() {
     if(this.isReadyToSave()) {
+      this.isDataLoading = true;
       this.pictureUploadService.uploadPicture(new PictureUploadModel(this.loadedPictures[0], 'pets_tst')).subscribe((response) => {
         const formData = this.petDataForm.getRawValue();
         this.lostPet.name = formData.name;
@@ -101,6 +103,7 @@ export class CreateLostPetModalComponent implements OnInit {
         this.lostPet.pictureUrl = response.secure_url;
 
         this.lostPetService.persistLostPet(this.lostPet).subscribe((savedPet: LostPet) => {
+          this.isDataLoading = false;
           this.activeModal.close(savedPet);
         })
       });

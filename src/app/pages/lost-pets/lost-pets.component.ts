@@ -75,7 +75,11 @@ export class LostPetsComponent implements OnInit {
   }
 
   openAddDialog() {
-    const modalRef = this.modalService.open(CreateLostPetModalComponent, {windowClass: "add-pet-modal"});
+    const modalRef = this.modalService.open(CreateLostPetModalComponent, {
+      backdrop : 'static',
+      keyboard : false,
+      windowClass: "add-pet-modal"
+    });
     modalRef.result.then((savedPet: LostPet) => {
       if (savedPet) {
         this.lostPets.push(savedPet);
