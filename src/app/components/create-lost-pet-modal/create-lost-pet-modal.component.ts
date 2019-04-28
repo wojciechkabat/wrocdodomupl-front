@@ -67,7 +67,7 @@ export class CreateLostPetModalComponent implements OnInit {
       type: [Constants.PET_TYPE.DOG, Validators.required],
       gender: [Constants.GENDER.MALE, Validators.required],
       phoneNumber: [''],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)]],
       additionalInfo: ['']
     });
   }
@@ -100,6 +100,7 @@ export class CreateLostPetModalComponent implements OnInit {
     reader.readAsDataURL(file);
 
     reader.onload = () => {
+      this.loadedPictures = [];
       this.loadedPictures.push(reader.result);
     }
   }
