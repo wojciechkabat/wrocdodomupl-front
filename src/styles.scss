@@ -11,12 +11,17 @@
 
 .add-pet-modal {
   .modal-dialog {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
     width: 100%;
     max-width: 600px;
+    min-height: calc(100vh - 60px);
   }
-
   @media (max-width: 600px) {
     .modal-dialog {
+      min-height: calc(100vh - 20px);
       margin: 0;
     }
   }
