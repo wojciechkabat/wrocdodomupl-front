@@ -1,21 +1,24 @@
 <div class="page-wrapper">
   <agm-map
     #agmMap
-    [latitude]="mapCenterLatitude"
-    [zoom]="mapZoom"
+    [latitude]="mapData.centerLatitude"
+    [zoom]="mapData.zoom"
     [disableDefaultUI]="true"
     [streetViewControl]="false"
     [zoomControl]="false"
     [clickableIcons]="false"
     (mapReady)="mapReady($event)"
     (mapClick)="mapClicked()"
-    [longitude]="mapCenterLongitude">
-    <agm-marker
-      *ngFor="let pet of lostPets"
-      (markerClick)="petSelected(pet)"
-      [latitude]="pet.coordinates.latitude"
-      [longitude]="pet.coordinates.longitude">
-    </agm-marker>
+    [longitude]="mapData.centerLongitude">
+    <agm-marker-cluster imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
+      <agm-marker
+        *ngFor="let pet of lostPets"
+        (markerClick)="petSelected(pet)"
+        [iconUrl]="pet.type === 'DOG' ? dogPinIcon : catPinIcon"
+        [latitude]="pet.coordinates.latitude"
+        [longitude]="pet.coordinates.longitude">
+      </agm-marker>
+    </agm-marker-cluster>
   </agm-map>
 
   <div #lostPetInfoSidePanel class="sidepanel">

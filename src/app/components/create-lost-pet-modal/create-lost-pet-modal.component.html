@@ -95,14 +95,14 @@
       <div class="map-container">
         <agm-map
           #agmMap
-          [latitude]="51"
-          [zoom]="10"
+          [latitude]="mapData.centerLatitude"
+          [zoom]="mapData.zoom"
           [disableDefaultUI]="true"
           [streetViewControl]="false"
           [zoomControl]="false"
           [clickableIcons]="false"
           (centerChange)="mapMoved($event)"
-          [longitude]="21">
+          [longitude]="mapData.centerLongitude">
         </agm-map>
         <div class="center-marker"></div>
       </div>

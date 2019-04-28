@@ -10,15 +10,17 @@ import { LostPetsComponent } from './pages/lost-pets/lost-pets.component';
 import { AgmCoreModule } from "@agm/core";
 import { LostPetSidePanelComponent } from './components/lost-pet-side-panel/lost-pet-side-panel.component';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { GeoLocationService } from "./services/geo-location.service";
 import { ApiService } from "./services/api.service";
 import { LostPetService } from "./services/lost-pet.service";
 import { HttpClientModule } from "@angular/common/http";
 import { CreateLostPetModalComponent } from './components/create-lost-pet-modal/create-lost-pet-modal.component';
 import { WelcomeComponent } from "./pages/welcome/welcome.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatFormFieldModule, MatStepperModule } from "@angular/material";
+import { MatStepperModule } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
+import { CurrentUserService } from "./services/current-user.service";
+import { PictureUploadService } from "./services/picture-upload.service";
 
 @NgModule({
   declarations: [
@@ -45,12 +47,14 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     BrowserAnimationsModule,
     MatStepperModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgmJsMarkerClustererModule
   ],
   providers: [
-    GeoLocationService,
     ApiService,
-    LostPetService
+    LostPetService,
+    CurrentUserService,
+    PictureUploadService
   ],
   bootstrap: [AppComponent]
 })

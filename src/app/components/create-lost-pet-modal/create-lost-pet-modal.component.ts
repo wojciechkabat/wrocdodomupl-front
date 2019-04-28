@@ -2,13 +2,24 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { AgmMap } from "@agm/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { faPaw, faVenusMars, faInfo, faPhone, faEnvelope, faCalendarAlt, faTag, faCamera } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPaw,
+  faVenusMars,
+  faInfo,
+  faPhone,
+  faEnvelope,
+  faCalendarAlt,
+  faTag,
+  faCamera
+} from '@fortawesome/free-solid-svg-icons';
 import { LostPet } from "../../models/LostPet";
 import { Coordinates } from "../../models/Coordinates";
 import { LostPetService } from "../../services/lost-pet.service";
 import { Constants } from "../../constants";
-import { PictureUploadService } from "../../picture-upload.service";
 import { PictureUploadModel } from "../../models/PictureUploadModel";
+import { PictureUploadService } from "../../services/picture-upload.service";
+import { CurrentUserService } from "../../services/current-user.service";
+import { MapData } from "../../models/MapData";
 
 @Component({
   selector: 'app-create-lost-pet-modal',
@@ -33,12 +44,17 @@ export class CreateLostPetModalComponent implements OnInit {
   faTag = faTag;
   faCalendarAlt = faCalendarAlt;
 
+  mapData: MapData;
+
   constructor(private _formBuilder: FormBuilder,
               private lostPetService: LostPetService,
+              private currentUserService: CurrentUserService,
               private pictureUploadService: PictureUploadService,
-              public activeModal: NgbActiveModal) {}
+              public activeModal: NgbActiveModal) {
+  }
 
   ngOnInit() {
+    this.initializeMap();
     this.lostPet = new LostPet();
     this.lostPet.lastSeen = new Date();
 
@@ -66,7 +82,7 @@ export class CreateLostPetModalComponent implements OnInit {
   }
 
   assignDateFromString(dateString: string) {
-    if(dateString) {
+    if (dateString) {
       this.lostPet.lastSeen = new Date(dateString)
     }
   }
@@ -81,16 +97,16 @@ export class CreateLostPetModalComponent implements OnInit {
     }
 
     let reader = new FileReader();
-      reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
 
-      reader.onload = () => {
-        this.loadedPictures.push(reader.result);
-      }
+    reader.onload = () => {
+      this.loadedPictures.push(reader.result);
+    }
   }
 
 
   persistLostPet() {
-    if(this.isReadyToSave()) {
+    if (this.isReadyToSave()) {
       this.isDataLoading = true;
       this.pictureUploadService.uploadPicture(new PictureUploadModel(this.loadedPictures[0], 'pets_tst')).subscribe((response) => {
         const formData = this.petDataForm.getRawValue();
@@ -108,5 +124,14 @@ export class CreateLostPetModalComponent implements OnInit {
         })
       });
     }
+  }
+
+  private initializeMap() {
+    const currentUserCoordinates = this.currentUserService.getCurrentUserCoordinates();
+    this.mapData = new MapData(
+      currentUserCoordinates ? currentUserCoordinates.longitude : Constants.DEFAULT_CENTER_LONGITUDE,
+      currentUserCoordinates ? currentUserCoordinates.latitude : Constants.DEFAULT_CENTER_LATITUDE,
+      currentUserCoordinates ? 10 : Constants.DEFAULT_MAP_ZOOM
+    )
   }
 }

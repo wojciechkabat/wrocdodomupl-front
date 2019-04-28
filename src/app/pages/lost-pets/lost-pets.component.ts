@@ -1,12 +1,14 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { LostPet } from "../../models/LostPet";
 import { Coordinates } from "../../models/Coordinates";
-import { GeoLocationService } from "../../services/geo-location.service";
 import { LostPetService } from "../../services/lost-pet.service";
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { CreateLostPetModalComponent } from "../../components/create-lost-pet-modal/create-lost-pet-modal.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AgmMap } from "@agm/core";
+import { Constants } from "../../constants";
+import { CurrentUserService } from "../../services/current-user.service";
+import { MapData } from "../../models/MapData";
 
 @Component({
   selector: 'app-lost-pets',
@@ -14,38 +16,28 @@ import { AgmMap } from "@agm/core";
   styleUrls: ['./lost-pets.component.scss']
 })
 export class LostPetsComponent implements OnInit {
-  mapCenterLatitude: number;
-  mapCenterLongitude: number;
-  mapZoom: number;
+  mapData: MapData;
 
   agmMap: AgmMap;
-  currentUserCoordinates: Coordinates;
   lostPets: LostPet[];
   selectedPet: LostPet;
 
   faPlusCircle = faPlusCircle;
+  dogPinIcon = Constants.DOG_PIN_ICON;
+  catPinIcon = Constants.CAT_PIN_ICON;
+
 
   @ViewChild('lostPetInfoSidePanel') lostPetInfoSidePanel;
   @ViewChild('addPetButton') addPetButton;
 
-  constructor(private geoLocationService: GeoLocationService,
+  constructor(private currentUserService: CurrentUserService,
               private modalService: NgbModal,
               private lostPetsService: LostPetService) {
   }
 
   ngOnInit(): void {
-    this.mapCenterLatitude = 51;
-    this.mapCenterLongitude = 21;
-    this.mapZoom = 10;
+    this.initializeMap();
     this.initializeLostPets();
-
-    this.geoLocationService.getPosition().subscribe(
-      (pos: Position) => {
-        this.currentUserCoordinates = {
-          latitude: +(pos.coords.latitude),
-          longitude: +(pos.coords.longitude)
-        };
-      });
   }
 
   petSelected(pet: LostPet) {
@@ -90,12 +82,21 @@ export class LostPetsComponent implements OnInit {
   }
 
   recenterMapToPosition(coordinates: Coordinates) {
-    this.mapCenterLongitude = coordinates.longitude;
-    this.mapCenterLatitude = coordinates.latitude;
-    this.mapZoom = 15;
+    this.mapData.centerLongitude = coordinates.longitude;
+    this.mapData.centerLatitude = coordinates.latitude;
+    this.mapData.zoom = 15;
   }
 
   mapReady(map) {
     this.agmMap = map;
+  }
+
+  private initializeMap() {
+    const currentUserCoordinates = this.currentUserService.getCurrentUserCoordinates();
+    this.mapData = new MapData(
+      currentUserCoordinates ? currentUserCoordinates.longitude : Constants.DEFAULT_CENTER_LONGITUDE,
+      currentUserCoordinates ? currentUserCoordinates.latitude : Constants.DEFAULT_CENTER_LATITUDE,
+      currentUserCoordinates ? 10 : Constants.DEFAULT_MAP_ZOOM
+    )
   }
 }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from "./services/api.service";
 import { Observable } from "rxjs/internal/Observable";
-import { Constants } from "./constants";
-import { PictureUploadModel } from "./models/PictureUploadModel";
+import { ApiService } from "./api.service";
+import { Constants } from "../constants";
+import { PictureUploadModel } from "../models/PictureUploadModel";
 
 @Injectable({
   providedIn: 'root'
