@@ -5,7 +5,7 @@ export class LostPet {
   name: string;
   additionalInfo: string;
   lastSeen: Date;
-  pictureUrl: string;
+  pictureUrls: string[];
   phoneNumber: string;
   email: string;
   gender: string;

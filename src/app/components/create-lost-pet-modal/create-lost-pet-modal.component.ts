@@ -10,16 +10,17 @@ import {
   faEnvelope,
   faCalendarAlt,
   faTag,
+  faTrash,
   faCamera
 } from '@fortawesome/free-solid-svg-icons';
 import { LostPet } from "../../models/LostPet";
 import { Coordinates } from "../../models/Coordinates";
 import { LostPetService } from "../../services/lost-pet.service";
 import { Constants } from "../../constants";
-import { PictureUploadModel } from "../../models/PictureUploadModel";
 import { PictureUploadService } from "../../services/picture-upload.service";
 import { CurrentUserService } from "../../services/current-user.service";
 import { MapData } from "../../models/MapData";
+import { Picture } from "../../models/Picture";
 
 @Component({
   selector: 'app-create-lost-pet-modal',
@@ -30,7 +31,7 @@ export class CreateLostPetModalComponent implements OnInit {
   @ViewChild('agmMap') agmMap: AgmMap;
   petDataForm: FormGroup;
 
-  loadedPictures = [];
+  loadedPictures: Picture[] = [];
   isDataLoading: boolean;
 
   lostPet: LostPet;
@@ -42,6 +43,7 @@ export class CreateLostPetModalComponent implements OnInit {
   faInfo = faInfo;
   faVenusMars = faVenusMars;
   faTag = faTag;
+  faTrash = faTrash;
   faCalendarAlt = faCalendarAlt;
 
   mapData: MapData;
@@ -87,7 +89,7 @@ export class CreateLostPetModalComponent implements OnInit {
     }
   }
 
-  onFileChange(e) {
+  onFileAdded(e) {
     const [file] = e.target.files;
     const pattern = /image-*/;
 
@@ -100,16 +102,23 @@ export class CreateLostPetModalComponent implements OnInit {
     reader.readAsDataURL(file);
 
     reader.onload = () => {
-      this.loadedPictures = [];
-      this.loadedPictures.push(reader.result);
+      console.log(this.loadedPictures)
+      this.loadedPictures.push(new Picture(e.target.files[0].name, reader.result));
+      console.log(this.loadedPictures)
     }
+  }
+
+  removePicture(picture: Picture) {
+    const index = this.loadedPictures.indexOf(picture);
+    this.loadedPictures.splice(index, 1);
   }
 
 
   persistLostPet() {
     if (this.isReadyToSave()) {
       this.isDataLoading = true;
-      this.pictureUploadService.uploadPicture(new PictureUploadModel(this.loadedPictures[0], 'pets_tst')).subscribe((response) => {
+
+      this.pictureUploadService.uploadPictures(this.loadedPictures).subscribe((pictureUrls) => {
         const formData = this.petDataForm.getRawValue();
         this.lostPet.name = formData.name;
         this.lostPet.type = formData.type;
@@ -117,14 +126,18 @@ export class CreateLostPetModalComponent implements OnInit {
         this.lostPet.phoneNumber = formData.phoneNumber;
         this.lostPet.email = formData.email;
         this.lostPet.additionalInfo = formData.additionalInfo;
-        this.lostPet.pictureUrl = response.secure_url;
+        this.lostPet.pictureUrls = pictureUrls;
 
         this.lostPetService.persistLostPet(this.lostPet).subscribe((savedPet: LostPet) => {
           this.isDataLoading = false;
           this.activeModal.close(savedPet);
         })
-      });
+      })
     }
+  }
+
+  clearFileInput(e) {
+    e.target.value = null;
   }
 
   private initializeMap() {

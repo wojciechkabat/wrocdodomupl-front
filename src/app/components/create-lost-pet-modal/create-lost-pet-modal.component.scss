@@ -33,9 +33,26 @@ agm-map {
   width:20px;
   cursor:pointer;
 }
+.loaded-pic-row {
+  margin-top: 10px;
+  margin-bottom: 10px;
 
-.loaded-pic {
-  width: 100%;
+  .remove-pic-icon {
+    cursor: pointer;
+  }
+
+  .picture-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .loaded-pic {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  }
 }
+
 
 

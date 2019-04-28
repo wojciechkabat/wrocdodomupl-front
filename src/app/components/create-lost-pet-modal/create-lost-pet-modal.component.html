@@ -48,7 +48,8 @@
             <fa-icon [icon]="faPhone" class="vertical-column-align" size="lg"></fa-icon>
           </div>
           <div class="col">
-            <input class="form-control" type="number" matInput placeholder="Numer telefonu" formControlName="phoneNumber">
+            <input class="form-control" type="number" matInput placeholder="Numer telefonu"
+                   formControlName="phoneNumber">
           </div>
         </div>
 
@@ -71,7 +72,8 @@
             <fa-icon [icon]="faInfo" class="vertical-column-align" size="lg"></fa-icon>
           </div>
           <div class="col">
-            <textarea class="form-control" matInput placeholder="Dodaj jak najwięcej informacji, które pomogą znaleźć zwierzaka"
+            <textarea class="form-control" matInput
+                      placeholder="Dodaj jak najwięcej informacji, które pomogą znaleźć zwierzaka"
                       formControlName="additionalInfo"></textarea>
           </div>
         </div>
@@ -113,27 +115,40 @@
       </div>
       <div class="mt-2">
         <button type="button" class="btn form-button fa-pull-left" matStepperPrevious>Wstecz</button>
-        <button type="button" class="btn form-button fa-pull-right" [disabled]="!lostPet.lastSeen" matStepperNext>Dalej</button>
+        <button type="button" class="btn form-button fa-pull-right" [disabled]="!lostPet.lastSeen" matStepperNext>
+          Dalej
+        </button>
       </div>
     </mat-step>
 
     <mat-step>
       <ng-template matStepLabel>Zdjęcia</ng-template>
 
-      <p>Dodaj zdjęcia, aby ułatwić poszukiwania</p>
+      <p>Dodaj maksymalnie 3 zdjęcia, aby ułatwić poszukiwania: </p>
 
-      <div class="row input-field mt-2 mb-2">
-        <div class="col-1 text-center">
-          <fa-icon [icon]="faCamera" class="vertical-column-align" size="lg"></fa-icon>
+      <div class="row loaded-pic-row" *ngFor="let picture of loadedPictures; let i = index">
+        <div class="col-1 col-md-1 vertical-align">
+          <div>{{i + 1}}.</div>
         </div>
-        <div class="col">
-          <input type="file" accept="image/*" (change)="onFileChange($event)" />
+        <div class="col col-2 col-md-2 vertical-align">
+          <img class="loaded-pic" [src]="picture.data"/>
+        </div>
+        <div class="col col-7 col-md-8 vertical-align">
+          <div class="picture-name">{{picture.name}}</div>
+        </div>
+        <div class="col col-1 col-md-1 vertical-align">
+          <fa-icon class="remove-pic-icon" (click)="removePicture(picture)" [icon]="faTrash" size="lg"></fa-icon>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-12" *ngFor="let picture of loadedPictures">
-          <img class="loaded-pic" [src]="picture"/>
+
+      <div class="row input-field mt-2 mb-2" *ngIf="loadedPictures.length < 3">
+        <div class="col text-center">
+          <input #fileInput type="file" accept="image/*" (change)="onFileAdded($event)" (click)="clearFileInput($event)" style="display: none"/>
+          <button type="button" class="btn form-button" (click)="fileInput.click();">
+            <fa-icon [icon]="faCamera" size="lg"></fa-icon>
+            Dodaj zdjęcie
+          </button>
         </div>
       </div>
 
