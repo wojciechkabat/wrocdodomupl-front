@@ -1,11 +1,11 @@
-.pet-picture {
+.pet-pictures-container {
   width: 100%;
   height: 300px;
   margin-bottom: 20px;
 
   img {
     width: 100%;
-    height: 100%;
+    height: 300px;
     object-fit: cover;
   }
 }

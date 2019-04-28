@@ -1,13 +1,18 @@
 <div class="sidePanelTitle"></div>
 <div class="sidePanelContent">
-  <div class="pet-picture">
-    <img
-      (load)="this.isPictureLoaded = true;"
-      [hidden]="!isPictureLoaded"
-      [src]="pet.pictureUrl"/>
-    <img
-      [hidden]="isPictureLoaded"
-       src="../../../assets/img/spinner2.gif"/>
+  <div class="pet-pictures-container">
+    <ngb-carousel>
+      <ng-template ngbSlide>
+        <img
+          (load)="this.isPictureLoaded = true;"
+          [hidden]="!isPictureLoaded"
+          [src]="pet.pictureUrl" alt="Random first slide"/>
+        <img
+          [hidden]="isPictureLoaded"
+          src="../../../assets/img/spinner2.gif"/>
+      </ng-template>
+    </ngb-carousel>
+
   </div>
 
   <div class="row pet-detail">
