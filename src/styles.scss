@@ -29,10 +29,12 @@
 
 .carousel-control-next-icon{
   background-image: url('assets/img/arrow_right.png') !important;
+  cursor: pointer;
 }
 
 .carousel-control-prev-icon{
   background-image: url('assets/img/arrow_left.png') !important;
+  cursor: pointer;
 }
 
 .carousel-indicators li {

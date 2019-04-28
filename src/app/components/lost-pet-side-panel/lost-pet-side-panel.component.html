@@ -1,4 +1,6 @@
-<div class="sidePanelTitle"></div>
+<div class="sidePanelTitle vertical-align">
+  Zaginiony {{pet.type === 'DOG' ? 'pies' : 'kot'}}
+</div>
 <div class="sidePanelContent">
   <div class="pet-pictures-container">
     <div *ngIf="pet.pictureUrls.length === 1">
@@ -66,7 +68,7 @@
       <fa-icon [icon]="faCalendarAlt" size="lg"></fa-icon>
     </div>
     <div class="col">
-      {{pet.lastSeen | date: 'd MMMM yyyy'}}
+      Ostatnio widziany: {{pet.lastSeen | date: 'd.MM.yyyy'}}
     </div>
   </div>
 
