@@ -20,7 +20,7 @@ export class Constants {
   public static DEFAULT_MAP_ZOOM = 6;
 
   public static LOST_DOG_PIN_ICON = {
-    url: '../../assets/img/found_dog_pin.png',
+    url: '../../assets/img/lost_dog_pin.png',
     scaledSize: {
       width: 30,
       height: 50
@@ -28,7 +28,7 @@ export class Constants {
   };
 
   public static FOUND_DOG_PIN_ICON = {
-    url: '../../assets/img/lost_dog_pin.png',
+    url: '../../assets/img/found_dog_pin.png',
     scaledSize: {
       width: 30,
       height: 50

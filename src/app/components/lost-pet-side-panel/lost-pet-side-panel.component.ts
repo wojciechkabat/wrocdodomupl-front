@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Pet } from "../../models/Pet";
 import { faTag, faVenusMars, faInfo, faPhone, faEnvelope, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { Constants } from "../../constants";
 @Component({
   selector: 'app-lost-pet-side-panel',
   templateUrl: './lost-pet-side-panel.component.html',
@@ -24,7 +25,14 @@ export class LostPetSidePanelComponent implements OnInit {
   }
 
   resolveGender(gender) {
-    return gender === 'MALE'? 'Samiec' : 'Samica';
+    switch (gender) {
+      case Constants.GENDER.MALE:
+        return 'Samiec';
+      case Constants.GENDER.FEMALE:
+        return 'Samica';
+      case Constants.GENDER.UNKNOWN:
+        return 'Nieznana płeć';
+    }
   }
 
 }

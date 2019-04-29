@@ -1,5 +1,6 @@
 <div class="sidePanelTitle vertical-align">
-  Zaginiony {{pet.type === 'DOG' ? 'pies' : 'kot'}}
+  <div *ngIf="pet.status === 'LOST'">Zaginiony {{pet.type === 'DOG' ? 'pies' : 'kot'}}</div>
+  <div *ngIf="pet.status === 'FOUND'">Znaleziony {{pet.type === 'DOG' ? 'pies' : 'kot'}}</div>
 </div>
 <div class="sidePanelContent">
   <div class="pet-pictures-container">
@@ -26,7 +27,7 @@
 
   </div>
 
-  <div class="row pet-detail">
+  <div class="row pet-detail" *ngIf="pet.name">
     <div class="col col-2 text-center">
       <fa-icon [icon]="faTag" size="lg"></fa-icon>
     </div>
@@ -53,7 +54,7 @@
     </div>
   </div>
 
-  <div class="row pet-detail" *ngIf="pet.email">
+  <div class="row pet-detail">
     <div class="col col-2 text-center">
       <fa-icon [icon]="faEnvelope" size="lg"></fa-icon>
     </div>
@@ -68,7 +69,8 @@
       <fa-icon [icon]="faCalendarAlt" size="lg"></fa-icon>
     </div>
     <div class="col">
-      Ostatnio widziany: {{pet.lastSeen | date: 'd.MM.yyyy'}}
+      <div *ngIf="pet.status === 'LOST'">Ostatnio widziany: {{pet.lastSeen | date: 'd.MM.yyyy'}}</div>
+      <div *ngIf="pet.status === 'FOUND'">Znaleziony: {{pet.lastSeen | date: 'd.MM.yyyy'}}</div>
     </div>
   </div>
 
