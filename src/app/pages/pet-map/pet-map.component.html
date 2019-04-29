@@ -10,7 +10,8 @@
     (mapReady)="mapReady($event)"
     (mapClick)="mapClicked()"
     [longitude]="mapData.centerLongitude">
-    <agm-marker-cluster imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
+    <agm-marker-cluster
+      imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
       <agm-marker
         *ngFor="let pet of pets"
         (markerClick)="petSelected(pet)"
@@ -20,6 +21,13 @@
       </agm-marker>
     </agm-marker-cluster>
   </agm-map>
+
+  <div #filterButton
+    class="fab-toggle d-flex align-items-center justify-content-center"
+    (click)="onClick.emit($event)">
+    <fa-icon [icon]="faFilter" size="2x" class="mt-3"></fa-icon>
+    <ng-content></ng-content>
+  </div>
 
   <div #lostPetInfoSidePanel class="sidepanel">
     <a class="closebtn" (click)="closeDetails()">&times;</a>

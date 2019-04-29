@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Pet } from "../../models/Pet";
 import { Coordinates } from "../../models/Coordinates";
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AgmMap } from "@agm/core";
 import { Constants } from "../../constants";
@@ -23,9 +23,11 @@ export class PetMapComponent implements OnInit {
   selectedPet: Pet;
 
   faPlusCircle = faPlusCircle;
+  faFilter = faFilter;
 
   @ViewChild('lostPetInfoSidePanel') lostPetInfoSidePanel;
   @ViewChild('addPetButton') addPetButton;
+  @ViewChild('filterButton') filterButton;
 
   constructor(private currentUserService: CurrentUserService,
               private modalService: NgbModal,
@@ -41,14 +43,20 @@ export class PetMapComponent implements OnInit {
     this.selectedPet = pet;
     this.lostPetInfoSidePanel.nativeElement.style.width = "100%";
     this.addPetButton.nativeElement.classList.remove('button-fade-in');
+    this.filterButton.nativeElement.classList.remove('button-scale-in');
+
     this.addPetButton.nativeElement.classList.add('button-fade-out');
+    this.filterButton.nativeElement.classList.add('button-scale-out')
   }
 
   closeDetails() {
     this.selectedPet = null;
     this.lostPetInfoSidePanel.nativeElement.style.width = "0";
     this.addPetButton.nativeElement.classList.remove('button-fade-out');
+    this.filterButton.nativeElement.classList.remove('button-scale-out');
+
     this.addPetButton.nativeElement.classList.add('button-fade-in');
+    this.filterButton.nativeElement.classList.add('button-scale-in');
   }
 
   mapClicked() {

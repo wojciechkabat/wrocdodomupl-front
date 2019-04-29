@@ -10,12 +10,16 @@ agm-map {
   max-width: 450px;
   position: absolute;
   z-index: 1;
-  top: 71px;
+  top: 0;
   left: 0;
   background-color: rgba(52, 58, 64, 0.95);
   overflow-x: hidden;
   transition: 0.5s;
   color: white;
+}
+
+.sidepanel::-webkit-scrollbar {
+  display: none;
 }
 
 .sidepanel .closebtn {
@@ -69,16 +73,87 @@ agm-map {
 
 .button-fade-out {
   width: 0;
-  height : 0;
-  transition : width 250ms, height 0s 250ms;
+  height: 0;
+  transition: width 250ms, height 0s 250ms;
 }
 
 .button-fade-in {
   width: 300px;
-  height : 60px;
-  transition : width 500ms, height 0ms;
+  height: 60px;
+  transition: width 500ms, height 0ms;
+}
+
+.button-scale-out {
+  animation-name: scale-out;
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.button-scale-in {
+  animation-name: scale-in;
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+
+@keyframes scale-out {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes scale-in {
+  0% {
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.2)
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .add-button:hover {
   background-image: linear-gradient(to right top, #fd495e, #fe525b, #fe525b, #fd495e);
+}
+
+@media (max-width: 600px) {
+  .fab-toggle {
+    width: 60px !important;
+    height: 60px !important;
+    top: 30px !important;
+    right: 30px !important;
+  }
+}
+
+.fab-toggle {
+  background-image: linear-gradient(to right top, #fd495e, #fe525b, #fe525b, #fd495e);
+  border-radius: 100%;
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  transition: transform ease-out 200ms;
+  z-index: 2;
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition-duration: 400ms;
+  transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+  cursor: pointer;
+}
+
+.fab-toggle:hover {
+  transform: scale(1.2, 1.2) translate3d(0, 0, 0);
 }
