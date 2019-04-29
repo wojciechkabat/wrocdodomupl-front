@@ -11,17 +11,19 @@ import {
   faCalendarAlt,
   faTag,
   faTrash,
-  faCamera
+  faCamera,
+  faSearch,
+  faDog
 } from '@fortawesome/free-solid-svg-icons';
 import { Pet } from "../../models/Pet";
 import { Coordinates } from "../../models/Coordinates";
-import { LostPetService } from "../../services/lost-pet.service";
 import { Constants } from "../../constants";
 import { PictureUploadService } from "../../services/picture-upload.service";
 import { CurrentUserService } from "../../services/current-user.service";
 import { MapData } from "../../models/MapData";
 import { Picture } from "../../models/Picture";
 import { PictureDto } from "../../models/PictureDto";
+import { PetService } from "../../services/pet.service";
 
 @Component({
   selector: 'app-create-lost-pet-modal',
@@ -46,11 +48,13 @@ export class CreateLostPetModalComponent implements OnInit {
   faTag = faTag;
   faTrash = faTrash;
   faCalendarAlt = faCalendarAlt;
+  faSearch = faSearch;
+  faDog = faDog;
 
   mapData: MapData;
 
   constructor(private _formBuilder: FormBuilder,
-              private lostPetService: LostPetService,
+              private lostPetService: PetService,
               private currentUserService: CurrentUserService,
               private pictureUploadService: PictureUploadService,
               public activeModal: NgbActiveModal) {
@@ -66,9 +70,9 @@ export class CreateLostPetModalComponent implements OnInit {
     });
 
     this.petDataForm = this._formBuilder.group({
-      name: ['', Validators.required],
+      name: [''],
       type: [Constants.PET_TYPE.DOG, Validators.required],
-      status: [Constants.PET_STATUS.LOST, Validators.required],
+      status: [Validators.required],
       gender: [Constants.GENDER.MALE, Validators.required],
       phoneNumber: [''],
       email: ['', [Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)]],
@@ -129,7 +133,7 @@ export class CreateLostPetModalComponent implements OnInit {
         this.lostPet.additionalInfo = formData.additionalInfo;
         this.lostPet.pictures = pictures;
 
-        this.lostPetService.persistLostPet(this.lostPet).subscribe((savedPet: Pet) => {
+        this.lostPetService.persistPet(this.lostPet).subscribe((savedPet: Pet) => {
           this.isDataLoading = false;
           this.activeModal.close(savedPet);
         })
@@ -139,6 +143,17 @@ export class CreateLostPetModalComponent implements OnInit {
 
   clearFileInput(e) {
     e.target.value = null;
+  }
+
+  resolveModalHeaderColor() {
+    switch (this.petDataForm.controls.status.value) {
+      case Constants.PET_STATUS.LOST:
+        return 'lost';
+      case Constants.PET_STATUS.FOUND:
+        return 'found';
+      default:
+        return 'no-status';
+    }
   }
 
   private initializeMap() {

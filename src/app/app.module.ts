@@ -11,7 +11,6 @@ import { AgmCoreModule } from "@agm/core";
 import { LostPetSidePanelComponent } from './components/lost-pet-side-panel/lost-pet-side-panel.component';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { ApiService } from "./services/api.service";
-import { LostPetService } from "./services/lost-pet.service";
 import { HttpClientModule } from "@angular/common/http";
 import { CreateLostPetModalComponent } from './components/create-lost-pet-modal/create-lost-pet-modal.component';
 import { WelcomeComponent } from "./pages/welcome/welcome.component";
@@ -21,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { CurrentUserService } from "./services/current-user.service";
 import { PictureUploadService } from "./services/picture-upload.service";
+import { PetService } from "./services/pet.service";
 
 @NgModule({
   declarations: [
@@ -52,7 +52,7 @@ import { PictureUploadService } from "./services/picture-upload.service";
   ],
   providers: [
     ApiService,
-    LostPetService,
+    PetService,
     CurrentUserService,
     PictureUploadService
   ],

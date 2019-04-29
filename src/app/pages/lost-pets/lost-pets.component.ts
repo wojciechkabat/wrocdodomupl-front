@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Pet } from "../../models/Pet";
 import { Coordinates } from "../../models/Coordinates";
-import { LostPetService } from "../../services/lost-pet.service";
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { CreateLostPetModalComponent } from "../../components/create-lost-pet-modal/create-lost-pet-modal.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -9,6 +8,7 @@ import { AgmMap } from "@agm/core";
 import { Constants } from "../../constants";
 import { CurrentUserService } from "../../services/current-user.service";
 import { MapData } from "../../models/MapData";
+import { PetService } from "../../services/pet.service";
 
 @Component({
   selector: 'app-lost-pets',
@@ -19,25 +19,22 @@ export class LostPetsComponent implements OnInit {
   mapData: MapData;
 
   agmMap: AgmMap;
-  lostPets: Pet[];
+  pets: Pet[];
   selectedPet: Pet;
 
   faPlusCircle = faPlusCircle;
-  dogPinIcon = Constants.DOG_PIN_ICON;
-  catPinIcon = Constants.CAT_PIN_ICON;
-
 
   @ViewChild('lostPetInfoSidePanel') lostPetInfoSidePanel;
   @ViewChild('addPetButton') addPetButton;
 
   constructor(private currentUserService: CurrentUserService,
               private modalService: NgbModal,
-              private lostPetsService: LostPetService) {
+              private petService: PetService) {
   }
 
   ngOnInit(): void {
     this.initializeMap();
-    this.initializeLostPets();
+    this.initializePets();
   }
 
   petSelected(pet: Pet) {
@@ -59,9 +56,9 @@ export class LostPetsComponent implements OnInit {
     this.closeDetails();
   }
 
-  initializeLostPets() {
-    this.lostPetsService.getLostPetsFromLast30Days().subscribe(pets => {
-        this.lostPets = pets;
+  initializePets() {
+    this.petService.getAllPetsFromLast30Days().subscribe(pets => {
+        this.pets = pets;
       }
     );
   }
@@ -74,7 +71,7 @@ export class LostPetsComponent implements OnInit {
     });
     modalRef.result.then((savedPet: Pet) => {
       if (savedPet) {
-        this.lostPets.push(savedPet);
+        this.pets.push(savedPet);
         this.petSelected(savedPet);
         this.recenterMapToPosition(savedPet.coordinates);
       }
@@ -89,6 +86,14 @@ export class LostPetsComponent implements OnInit {
 
   mapReady(map) {
     this.agmMap = map;
+  }
+
+  resolvePinIcon(pet: Pet) {
+    if (pet.status === Constants.PET_STATUS.LOST) {
+      return pet.type === Constants.PET_TYPE.DOG ? Constants.LOST_DOG_PIN_ICON : Constants.LOST_CAT_PIN_ICON;
+    } else {
+      return pet.type === Constants.PET_TYPE.DOG ? Constants.FOUND_DOG_PIN_ICON : Constants.FOUND_CAT_PIN_ICON;
+    }
   }
 
   private initializeMap() {

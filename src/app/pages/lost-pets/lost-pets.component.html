@@ -12,9 +12,9 @@
     [longitude]="mapData.centerLongitude">
     <agm-marker-cluster imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
       <agm-marker
-        *ngFor="let pet of lostPets"
+        *ngFor="let pet of pets"
         (markerClick)="petSelected(pet)"
-        [iconUrl]="pet.type === 'DOG' ? dogPinIcon : catPinIcon"
+        [iconUrl]="resolvePinIcon(pet)"
         [latitude]="pet.coordinates.latitude"
         [longitude]="pet.coordinates.longitude">
       </agm-marker>
@@ -30,7 +30,7 @@
     <button #addPetButton type="button" class="btn add-button p-0" (click)="openAddDialog()">
       <div *ngIf="!selectedPet">
         <fa-icon [icon]="faPlusCircle" size="2x" class="pl-2 fa-pull-left"></fa-icon>
-        <div class="add-button-text">Zgłoś zaginięcie</div>
+        <div class="add-button-text">Dodaj zgłoszenie</div>
       </div>
     </button>
   </div>

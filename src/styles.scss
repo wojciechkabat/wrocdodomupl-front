@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 .page-wrapper {
   height: calc(100vh - 71px);
 }
@@ -26,13 +27,18 @@
     }
   }
 }
+@media (max-width: 768px) {
+  .mat-step-label {
+    display: none !important;
+  }
+}
 
-.carousel-control-next-icon{
+.carousel-control-next-icon {
   background-image: url('assets/img/arrow_right.png') !important;
   cursor: pointer;
 }
 
-.carousel-control-prev-icon{
+.carousel-control-prev-icon {
   background-image: url('assets/img/arrow_left.png') !important;
   cursor: pointer;
 }
@@ -40,6 +46,8 @@
 .carousel-indicators li {
   background-color: #ff8e00 !important;
 }
+
+body { padding-right: 0 !important }
 
 * {
   font-family: "Poppins", serif;

@@ -1,14 +1,29 @@
 .modal-header {
-  background-image: linear-gradient(to right top, #fd495e, #fe525b, #fe5b58, #fe6456, #fe6c54);
   color: white;
+
+  &.lost {
+    background-image: linear-gradient(to right top, #fd495e, #fe525b, #fe5b58, #fe6456, #fe6c54);
+  }
+
+
+  &.found {
+    background-image: linear-gradient(to right top, #1aaa67, #0ca56d, #01a172, #009c76, #27ae60);
+  }
+
+  &.no-status {
+    background-color: #353942;
+  }
 }
+
 .map-container {
   width: 100%;
   height: 400px;
   position: relative;
 }
 
-textarea { resize: none; }
+textarea {
+  resize: none;
+}
 
 agm-map {
   width: 100%;
@@ -25,14 +40,16 @@ agm-map {
 }
 
 .center-marker {
-  position:absolute;
-  background:url(http://maps.gstatic.com/mapfiles/markers2/marker.png) no-repeat;
-  top:50%;left:50%;
-  z-index:5;
-  height:34px;
-  width:20px;
-  cursor:pointer;
+  position: absolute;
+  background: url(http://maps.gstatic.com/mapfiles/markers2/marker.png) no-repeat;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+  height: 34px;
+  width: 20px;
+  cursor: pointer;
 }
+
 .loaded-pic-row {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -56,6 +73,30 @@ agm-map {
 
 .disclaimer {
   font-size: 0.9rem;
+}
+
+
+.status-choice-button {
+  margin: 10px 0;
+  height: 50px;
+  width: 280px;
+  color: white;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  letter-spacing: 0.7px;
+
+  &.lost {
+    background-image: linear-gradient(to right top, #fd495e, #fe525b, #fe5b58, #fe6456, #fe6c54);
+  }
+
+  &.found {
+    background-image: linear-gradient(to right top, #1aaa67, #0ca56d, #01a172, #009c76, #27ae60);
+  }
+
+  .status-button-text {
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
 

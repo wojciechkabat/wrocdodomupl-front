@@ -1,11 +1,35 @@
-<div class="modal-header">
-  <h4 class="modal-title">Zgłoś zaginięcie</h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+<div class="modal-header" [ngClass]="resolveModalHeaderColor()">
+  <div [ngSwitch]="petDataForm.getRawValue().status">
+    <h4 class="modal-title" *ngSwitchDefault>Wybierz typ zgłoszenia</h4>
+    <h4 class="modal-title" *ngSwitchCase="'LOST'">Zgłoś zaginięcie</h4>
+    <h4 class="modal-title" *ngSwitchCase="'FOUND'">Zgłoś znalezienie</h4>
+  </div>
+
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
     <span aria-hidden="true" style="color: white; font-size: 2rem">&times;</span>
   </button>
 </div>
 <div class="modal-body">
   <mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-step>
+      <ng-template matStepLabel>Typ</ng-template>
+
+      <div class="row justify-content-center">
+        <button type="button" class="btn status-choice-button lost" matStepperNext (click)="this.petDataForm.controls.status.value = 'LOST';">
+            <fa-icon [icon]="faSearch" size="lg" class="pl-2 fa-pull-left"></fa-icon>
+            <div class="status-button-text pl-2 pr-2">Zgłaszam zaginięcie</div>
+        </button>
+      </div>
+
+      <div class="row justify-content-center">
+        <button type="button" class="btn status-choice-button found" matStepperNext (click)="this.petDataForm.controls.status.value = 'FOUND';">
+            <fa-icon [icon]="faDog" size="lg" class="pl-2 fa-pull-left"></fa-icon>
+            <div class="status-button-text pl-2 pr-2">Zgłaszam znalezienie</div>
+        </button>
+      </div>
+
+    </mat-step>
+
     <mat-step [stepControl]="petDataForm">
       <form [formGroup]="petDataForm">
         <ng-template matStepLabel>Dane</ng-template>
@@ -15,7 +39,12 @@
             <fa-icon [icon]="faTag" class="vertical-column-align" size="lg"></fa-icon>
           </div>
           <div class="col">
-            <input class="form-control" matInput placeholder="Imię zwierzaka" formControlName="name" required>
+            <input class="form-control"
+                   [ngClass]="petDataForm.controls['name'].touched && petDataForm.controls['name'].errors? 'is-invalid' : ''"
+                   matInput
+                   [placeholder]="petDataForm.getRawValue().status === 'LOST'? 'Imię zwierzaka' : 'Imię zwierzaka (jeśli je znasz)'"
+                   formControlName="name"
+                   [required]="petDataForm.getRawValue().status === 'LOST'">
           </div>
         </div>
 
@@ -39,6 +68,7 @@
             <select class="form-control" formControlName="gender">
               <option value="MALE">Samiec</option>
               <option value="FEMALE">Samica</option>
+              <option *ngIf="petDataForm.getRawValue().status === 'FOUND'" value="UNKNOWN">Nie wiem</option>
             </select>
           </div>
         </div>
@@ -73,7 +103,10 @@
           </div>
           <div class="col">
             <textarea class="form-control" matInput
-                      placeholder="Dodaj jak najwięcej informacji, które pomogą znaleźć zwierzaka"
+                      [placeholder]="
+                      petDataForm.getRawValue().status === 'LOST' ?
+                      'Dodaj jak najwięcej informacji, które pomogą znaleźć zwierzaka' :
+                      'Dodaj jak najwięcej informacji, które pomogą właścicielowi zidentyfikować zwierzaka' "
                       formControlName="additionalInfo"></textarea>
           </div>
         </div>
@@ -85,9 +118,10 @@
       </form>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Miejsce i czas zaginięcia</ng-template>
+      <ng-template matStepLabel>Miejsce i czas</ng-template>
 
-      <p>Kiedy i gdzie ostatnio widziałeś zwierzaka?</p>
+      <p *ngIf="petDataForm.getRawValue().status === 'LOST'">Kiedy i gdzie ostatnio widziałeś zwierzaka?</p>
+      <p *ngIf="petDataForm.getRawValue().status === 'FOUND'">Gdzie i kiedy znalazłeś zwierzaka?</p>
 
       <div class="row input-field">
         <div class="col-1 text-center">
@@ -124,7 +158,8 @@
     <mat-step>
       <ng-template matStepLabel>Zdjęcia</ng-template>
 
-      <p>Dodaj maksymalnie 3 zdjęcia, aby ułatwić poszukiwania: </p>
+      <p *ngIf="petDataForm.getRawValue().status === 'LOST'">Dodaj maksymalnie 3 zdjęcia, aby ułatwić poszukiwania: </p>
+      <p *ngIf="petDataForm.getRawValue().status === 'FOUND'">Dodaj maksymalnie 3 zdjęcia, aby ułatwić identyfikację zwierzaka: </p>
 
       <div class="row loaded-pic-row" *ngFor="let picture of loadedPictures; let i = index">
         <div class="col-1 col-md-1 vertical-align">
@@ -144,7 +179,8 @@
 
       <div class="row input-field mt-2 mb-2" *ngIf="loadedPictures.length < 3">
         <div class="col text-center">
-          <input #fileInput type="file" accept="image/*" (change)="onFileAdded($event)" (click)="clearFileInput($event)" style="display: none"/>
+          <input #fileInput type="file" accept="image/*" (change)="onFileAdded($event)" (click)="clearFileInput($event)"
+                 style="display: none"/>
           <button type="button" class="btn form-button" (click)="fileInput.click();">
             <fa-icon [icon]="faCamera" size="lg"></fa-icon>
             Dodaj zdjęcie
@@ -165,7 +201,8 @@
         </div>
       </div>
       <div class="disclaimer">
-        *Twoje ogłoszenie będzie widoczne przez 30 dni od daty publikacji. W tym czasie nie będzie możliwości jego edycji.
+        *Twoje ogłoszenie będzie widoczne przez 30 dni od daty publikacji. W tym czasie nie będzie możliwości jego
+        edycji.
       </div>
     </mat-step>
   </mat-horizontal-stepper>

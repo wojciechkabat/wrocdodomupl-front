@@ -6,15 +6,15 @@ import { Pet } from "../models/Pet";
 @Injectable({
   providedIn: 'root'
 })
-export class LostPetService {
+export class PetService {
 
   constructor(private apiService: ApiService) { }
 
-  getLostPetsFromLast30Days(): Observable<Pet[]> {
-    return this.apiService.get('pets/lost');
+  getAllPetsFromLast30Days(): Observable<Pet[]> {
+    return this.apiService.get('pets');
   }
 
-  persistLostPet(lostPet: Pet): Observable<Pet> {
-    return this.apiService.post('pets', lostPet);
+  persistPet(pet: Pet): Observable<Pet> {
+    return this.apiService.post('pets', pet);
   }
 }
