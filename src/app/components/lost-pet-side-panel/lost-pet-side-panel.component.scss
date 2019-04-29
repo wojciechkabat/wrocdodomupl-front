@@ -15,7 +15,14 @@
   width: 100%;
   font-size: 1.5rem;
   padding-left: 20px;
-  background-color: rgba(0,0,0, 0.3);
+
+  &.lost {
+    background-image: linear-gradient(to right top, #fd495e, #fe525b, #fe5b58, #fe6456, #fe6c54);
+  }
+
+  &.found {
+    background-image: linear-gradient(to right top, #1aaa67, #0ca56d, #01a172, #009c76, #27ae60);
+  }
 }
 
 .sidePanelContent {

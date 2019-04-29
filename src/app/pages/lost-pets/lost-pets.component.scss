@@ -20,7 +20,7 @@ agm-map {
 
 .sidepanel .closebtn {
   position: absolute;
-  top: 0;
+  top: 10px;
   right: 25px;
   font-size: 36px;
   margin-left: 50px;
@@ -28,7 +28,6 @@ agm-map {
 
 .closebtn:hover {
   cursor: pointer;
-  color: map_get($custom-colors, yellow-color) !important;
 }
 
 .add-button-wrapper {

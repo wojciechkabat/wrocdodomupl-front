@@ -1,4 +1,4 @@
-<div class="sidePanelTitle vertical-align">
+<div class="sidePanelTitle vertical-align" [ngClass]="pet.status === 'LOST'? 'lost' : 'found'">
   <div *ngIf="pet.status === 'LOST'">Zaginiony {{pet.type === 'DOG' ? 'pies' : 'kot'}}</div>
   <div *ngIf="pet.status === 'FOUND'">Znaleziony {{pet.type === 'DOG' ? 'pies' : 'kot'}}</div>
 </div>
