@@ -3,21 +3,21 @@
 </div>
 <div class="sidePanelContent">
   <div class="pet-pictures-container">
-    <div *ngIf="pet.pictureUrls.length === 1">
+    <div *ngIf="pet.pictures.length === 1">
       <img
         (load)="this.isPictureLoaded = true;"
         [hidden]="!isPictureLoaded"
-        [src]="pet.pictureUrls[0]" alt="Random first slide"/>
+        [src]="pet.pictures[0].pictureUrl"/>
       <img
         [hidden]="isPictureLoaded"
         src="../../../assets/img/spinner2.gif"/>
     </div>
-    <ngb-carousel *ngIf="pet.pictureUrls.length > 1">
-      <ng-template ngbSlide *ngFor="let pic of pet.pictureUrls">
+    <ngb-carousel *ngIf="pet.pictures.length > 1">
+      <ng-template ngbSlide *ngFor="let pic of pet.pictures">
         <img
           (load)="this.isPictureLoaded = true;"
           [hidden]="!isPictureLoaded"
-          [src]="pic" alt="Random first slide"/>
+          [src]="pic.pictureUrl" alt="Random first slide"/>
         <img
           [hidden]="isPictureLoaded"
           src="../../../assets/img/spinner2.gif"/>

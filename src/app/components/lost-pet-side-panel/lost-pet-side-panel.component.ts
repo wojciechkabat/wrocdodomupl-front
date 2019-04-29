@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { LostPet } from "../../models/LostPet";
+import { Pet } from "../../models/Pet";
 import { faTag, faVenusMars, faInfo, faPhone, faEnvelope, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-lost-pet-side-panel',
@@ -9,7 +9,7 @@ import { faTag, faVenusMars, faInfo, faPhone, faEnvelope, faCalendarAlt } from '
 export class LostPetSidePanelComponent implements OnInit {
 
   @Input()
-  pet: LostPet;
+  pet: Pet;
 
   faTag = faTag;
   faVenusMars = faVenusMars;

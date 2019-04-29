@@ -13,7 +13,7 @@ import {
   faTrash,
   faCamera
 } from '@fortawesome/free-solid-svg-icons';
-import { LostPet } from "../../models/LostPet";
+import { Pet } from "../../models/Pet";
 import { Coordinates } from "../../models/Coordinates";
 import { LostPetService } from "../../services/lost-pet.service";
 import { Constants } from "../../constants";
@@ -21,6 +21,7 @@ import { PictureUploadService } from "../../services/picture-upload.service";
 import { CurrentUserService } from "../../services/current-user.service";
 import { MapData } from "../../models/MapData";
 import { Picture } from "../../models/Picture";
+import { PictureDto } from "../../models/PictureDto";
 
 @Component({
   selector: 'app-create-lost-pet-modal',
@@ -34,7 +35,7 @@ export class CreateLostPetModalComponent implements OnInit {
   loadedPictures: Picture[] = [];
   isDataLoading: boolean;
 
-  lostPet: LostPet;
+  lostPet: Pet;
 
   faPaw = faPaw;
   faCamera = faCamera;
@@ -57,7 +58,7 @@ export class CreateLostPetModalComponent implements OnInit {
 
   ngOnInit() {
     this.initializeMap();
-    this.lostPet = new LostPet();
+    this.lostPet = new Pet();
     this.lostPet.lastSeen = new Date();
 
     this.agmMap.mapReady.subscribe(() => {
@@ -67,6 +68,7 @@ export class CreateLostPetModalComponent implements OnInit {
     this.petDataForm = this._formBuilder.group({
       name: ['', Validators.required],
       type: [Constants.PET_TYPE.DOG, Validators.required],
+      status: [Constants.PET_STATUS.LOST, Validators.required],
       gender: [Constants.GENDER.MALE, Validators.required],
       phoneNumber: [''],
       email: ['', [Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)]],
@@ -102,9 +104,7 @@ export class CreateLostPetModalComponent implements OnInit {
     reader.readAsDataURL(file);
 
     reader.onload = () => {
-      console.log(this.loadedPictures)
       this.loadedPictures.push(new Picture(e.target.files[0].name, reader.result));
-      console.log(this.loadedPictures)
     }
   }
 
@@ -118,17 +118,18 @@ export class CreateLostPetModalComponent implements OnInit {
     if (this.isReadyToSave()) {
       this.isDataLoading = true;
 
-      this.pictureUploadService.uploadPictures(this.loadedPictures).subscribe((pictureUrls) => {
+      this.pictureUploadService.uploadPictures(this.loadedPictures).subscribe((pictures: PictureDto[]) => {
         const formData = this.petDataForm.getRawValue();
         this.lostPet.name = formData.name;
         this.lostPet.type = formData.type;
         this.lostPet.gender = formData.gender;
         this.lostPet.phoneNumber = formData.phoneNumber;
         this.lostPet.email = formData.email;
+        this.lostPet.status = formData.status;
         this.lostPet.additionalInfo = formData.additionalInfo;
-        this.lostPet.pictureUrls = pictureUrls;
+        this.lostPet.pictures = pictures;
 
-        this.lostPetService.persistLostPet(this.lostPet).subscribe((savedPet: LostPet) => {
+        this.lostPetService.persistLostPet(this.lostPet).subscribe((savedPet: Pet) => {
           this.isDataLoading = false;
           this.activeModal.close(savedPet);
         })

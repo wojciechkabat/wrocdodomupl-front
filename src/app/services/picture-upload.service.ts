@@ -6,6 +6,7 @@ import { forkJoin } from "rxjs/internal/observable/forkJoin";
 import { map } from "rxjs/operators";
 import { Constants } from "../constants";
 import { Picture } from "../models/Picture";
+import { PictureDto } from "../models/PictureDto";
 
 @Injectable({
   providedIn: 'root'
@@ -15,18 +16,18 @@ export class PictureUploadService {
   constructor(private apiService: ApiService) {
   }
 
-  uploadPictures(pictures: Picture[]): Observable<string[]> {
+  uploadPictures(pictures: Picture[]): Observable<PictureDto[]> {
     const pictureUploadObservables: Observable<any>[] = [];
     for (const picture of pictures) {
       pictureUploadObservables.push(this.uploadPicture(new PictureUploadModel(picture.data, 'pets_tst')))
     }
     return forkJoin(pictureUploadObservables)
       .pipe(map(uploadData => {
-        const pictureUrls = [];
+        const pictureDtos = [];
         for (const uploadedElement of uploadData) {
-          pictureUrls.push(uploadedElement.secure_url)
+          pictureDtos.push(new PictureDto(uploadedElement.public_id, uploadedElement.secure_url))
         }
-        return pictureUrls;
+        return pictureDtos;
       }));
   }
 

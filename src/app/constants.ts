@@ -8,6 +8,11 @@ export class Constants {
     DOG: 'DOG',
     CAT: 'CAT'
   };
+  public static PET_STATUS = {
+    LOST: 'LOST',
+    FOUND: 'FOUND'
+  };
+
   public static PICTURE_UPLOAD_ENDPOINT='https://api.cloudinary.com/v1_1/wrocdodomucloud/image/upload';
   public static DEFAULT_CENTER_LONGITUDE = 19.25;
   public static DEFAULT_CENTER_LATITUDE = 52.06;

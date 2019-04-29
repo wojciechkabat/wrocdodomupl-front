@@ -1,5 +1,5 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { LostPet } from "../../models/LostPet";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Pet } from "../../models/Pet";
 import { Coordinates } from "../../models/Coordinates";
 import { LostPetService } from "../../services/lost-pet.service";
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
@@ -19,8 +19,8 @@ export class LostPetsComponent implements OnInit {
   mapData: MapData;
 
   agmMap: AgmMap;
-  lostPets: LostPet[];
-  selectedPet: LostPet;
+  lostPets: Pet[];
+  selectedPet: Pet;
 
   faPlusCircle = faPlusCircle;
   dogPinIcon = Constants.DOG_PIN_ICON;
@@ -40,7 +40,7 @@ export class LostPetsComponent implements OnInit {
     this.initializeLostPets();
   }
 
-  petSelected(pet: LostPet) {
+  petSelected(pet: Pet) {
     this.selectedPet = pet;
     this.lostPetInfoSidePanel.nativeElement.style.width = "100%";
     this.addPetButton.nativeElement.classList.remove('button-fade-in');
@@ -72,7 +72,7 @@ export class LostPetsComponent implements OnInit {
       keyboard : false,
       windowClass: "add-pet-modal"
     });
-    modalRef.result.then((savedPet: LostPet) => {
+    modalRef.result.then((savedPet: Pet) => {
       if (savedPet) {
         this.lostPets.push(savedPet);
         this.petSelected(savedPet);

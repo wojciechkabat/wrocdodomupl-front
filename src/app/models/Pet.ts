@@ -1,14 +1,16 @@
 import { Coordinates } from "./Coordinates";
+import { PictureDto } from "./PictureDto";
 
-export class LostPet {
+export class Pet {
   id: number;
   name: string;
   additionalInfo: string;
   lastSeen: Date;
-  pictureUrls: string[];
+  pictures: PictureDto[];
   phoneNumber: string;
   email: string;
   gender: string;
   type: string;
   coordinates: Coordinates;
+  status: string;
 }
