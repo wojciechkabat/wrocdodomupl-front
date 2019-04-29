@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LostPetSidePanelComponent } from './lost-pet-side-panel.component';
+import { ReportPetModalComponent } from './create-lost-pet-modal.component';
 
-describe('LostPetSidePanelComponent', () => {
-  let component: LostPetSidePanelComponent;
-  let fixture: ComponentFixture<LostPetSidePanelComponent>;
+describe('CreateLostPetModalComponent', () => {
+  let component: ReportPetModalComponent;
+  let fixture: ComponentFixture<ReportPetModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LostPetSidePanelComponent ]
+      declarations: [ ReportPetModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LostPetSidePanelComponent);
+    fixture = TestBed.createComponent(ReportPetModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

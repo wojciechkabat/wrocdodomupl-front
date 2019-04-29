@@ -23,7 +23,7 @@
 
   <div #lostPetInfoSidePanel class="sidepanel">
     <a class="closebtn" (click)="closeDetails()">&times;</a>
-    <app-lost-pet-side-panel *ngIf="selectedPet" [pet]="selectedPet"></app-lost-pet-side-panel>
+    <app-pet-details-side-panel *ngIf="selectedPet" [pet]="selectedPet"></app-pet-details-side-panel>
   </div>
 
   <div class="add-button-wrapper">

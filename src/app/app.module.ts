@@ -6,13 +6,10 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { LostPetsComponent } from './pages/lost-pets/lost-pets.component';
 import { AgmCoreModule } from "@agm/core";
-import { LostPetSidePanelComponent } from './components/lost-pet-side-panel/lost-pet-side-panel.component';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { ApiService } from "./services/api.service";
 import { HttpClientModule } from "@angular/common/http";
-import { CreateLostPetModalComponent } from './components/create-lost-pet-modal/create-lost-pet-modal.component';
 import { WelcomeComponent } from "./pages/welcome/welcome.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatStepperModule } from "@angular/material";
@@ -21,6 +18,9 @@ import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { CurrentUserService } from "./services/current-user.service";
 import { PictureUploadService } from "./services/picture-upload.service";
 import { PetService } from "./services/pet.service";
+import { PetMapComponent } from "./pages/pet-map/pet-map.component";
+import { PetDetailsSidePanelComponent } from "./components/pet-details-side-panel/pet-details-side-panel.component";
+import { ReportPetModalComponent } from "./components/report-pet-modal/report-pet-modal.component";
 
 @NgModule({
   declarations: [
@@ -28,12 +28,12 @@ import { PetService } from "./services/pet.service";
     WelcomeComponent,
     HeaderComponent,
     FooterComponent,
-    LostPetsComponent,
-    LostPetSidePanelComponent,
-    CreateLostPetModalComponent
+    PetMapComponent,
+    PetDetailsSidePanelComponent,
+    ReportPetModalComponent
   ],
   entryComponents: [
-    CreateLostPetModalComponent
+    ReportPetModalComponent
   ],
   imports: [
     BrowserModule,

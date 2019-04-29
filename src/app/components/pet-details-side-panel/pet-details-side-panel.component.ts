@@ -3,11 +3,11 @@ import { Pet } from "../../models/Pet";
 import { faTag, faVenusMars, faInfo, faPhone, faEnvelope, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { Constants } from "../../constants";
 @Component({
-  selector: 'app-lost-pet-side-panel',
-  templateUrl: './lost-pet-side-panel.component.html',
-  styleUrls: ['./lost-pet-side-panel.component.scss']
+  selector: 'app-pet-details-side-panel',
+  templateUrl: './pet-details-side-panel.component.html',
+  styleUrls: ['./pet-details-side-panel.component.scss']
 })
-export class LostPetSidePanelComponent implements OnInit {
+export class PetDetailsSidePanelComponent implements OnInit {
 
   @Input()
   pet: Pet;

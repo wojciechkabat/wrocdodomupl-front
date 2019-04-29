@@ -26,11 +26,11 @@ import { PictureDto } from "../../models/PictureDto";
 import { PetService } from "../../services/pet.service";
 
 @Component({
-  selector: 'app-create-lost-pet-modal',
-  templateUrl: './create-lost-pet-modal.component.html',
-  styleUrls: ['./create-lost-pet-modal.component.scss']
+  selector: 'app-report-pet-modal',
+  templateUrl: './report-pet-modal.component.html',
+  styleUrls: ['./report-pet-modal.component.scss']
 })
-export class CreateLostPetModalComponent implements OnInit {
+export class ReportPetModalComponent implements OnInit {
   @ViewChild('agmMap') agmMap: AgmMap;
   petDataForm: FormGroup;
 

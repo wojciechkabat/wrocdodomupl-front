@@ -2,20 +2,20 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Pet } from "../../models/Pet";
 import { Coordinates } from "../../models/Coordinates";
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { CreateLostPetModalComponent } from "../../components/create-lost-pet-modal/create-lost-pet-modal.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AgmMap } from "@agm/core";
 import { Constants } from "../../constants";
 import { CurrentUserService } from "../../services/current-user.service";
 import { MapData } from "../../models/MapData";
 import { PetService } from "../../services/pet.service";
+import { ReportPetModalComponent } from "../../components/report-pet-modal/report-pet-modal.component";
 
 @Component({
-  selector: 'app-lost-pets',
-  templateUrl: './lost-pets.component.html',
-  styleUrls: ['./lost-pets.component.scss']
+  selector: 'app-pet-map',
+  templateUrl: './pet-map.component.html',
+  styleUrls: ['./pet-map.component.scss']
 })
-export class LostPetsComponent implements OnInit {
+export class PetMapComponent implements OnInit {
   mapData: MapData;
 
   agmMap: AgmMap;
@@ -64,7 +64,7 @@ export class LostPetsComponent implements OnInit {
   }
 
   openAddDialog() {
-    const modalRef = this.modalService.open(CreateLostPetModalComponent, {
+    const modalRef = this.modalService.open(ReportPetModalComponent, {
       backdrop : 'static',
       keyboard : false,
       windowClass: "add-pet-modal"
