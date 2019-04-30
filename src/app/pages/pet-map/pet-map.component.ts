@@ -9,6 +9,8 @@ import { CurrentUserService } from "../../services/current-user.service";
 import { MapData } from "../../models/MapData";
 import { PetService } from "../../services/pet.service";
 import { ReportPetModalComponent } from "../../components/report-pet-modal/report-pet-modal.component";
+import { FilterModalComponent } from "../../components/filter-modal/filter-modal.component";
+import { Filter } from "../../models/Filter";
 
 @Component({
   selector: 'app-pet-map',
@@ -17,9 +19,13 @@ import { ReportPetModalComponent } from "../../components/report-pet-modal/repor
 })
 export class PetMapComponent implements OnInit {
   mapData: MapData;
+  filter: Filter;
 
   agmMap: AgmMap;
-  pets: Pet[];
+
+  allFoundPets: Pet[];
+  filteredPets: Pet[];
+
   selectedPet: Pet;
 
   faPlusCircle = faPlusCircle;
@@ -35,6 +41,7 @@ export class PetMapComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filter = new Filter();
     this.initializeMap();
     this.initializePets();
   }
@@ -64,14 +71,15 @@ export class PetMapComponent implements OnInit {
     this.closeDetails();
   }
 
-  initializePets() {
+  initializePets(): void {
     this.petService.getAllPetsFromLast30Days().subscribe(pets => {
-        this.pets = pets;
+        this.allFoundPets = pets;
+        this.applyMapFilter();
       }
     );
   }
 
-  openAddDialog() {
+  openAddDialog(): void {
     const modalRef = this.modalService.open(ReportPetModalComponent, {
       backdrop : 'static',
       keyboard : false,
@@ -79,7 +87,7 @@ export class PetMapComponent implements OnInit {
     });
     modalRef.result.then((savedPet: Pet) => {
       if (savedPet) {
-        this.pets.push(savedPet);
+        this.allFoundPets.push(savedPet);
         this.petSelected(savedPet);
         this.recenterMapToPosition(savedPet.coordinates);
       }
@@ -92,7 +100,7 @@ export class PetMapComponent implements OnInit {
     this.mapData.zoom = 15;
   }
 
-  mapReady(map) {
+  mapReady(map): void {
     this.agmMap = map;
   }
 
@@ -104,12 +112,34 @@ export class PetMapComponent implements OnInit {
     }
   }
 
-  private initializeMap() {
+  filterButtonClicked(): void {
+    const modalRef = this.modalService.open(FilterModalComponent, {
+      backdrop : 'static',
+      keyboard : false,
+      windowClass: "filter-modal"
+    });
+    modalRef.componentInstance.filter = this.filter;
+    modalRef.result.then(() => {
+      this.applyMapFilter();
+    })
+  }
+
+  private initializeMap(): void {
     const currentUserCoordinates = this.currentUserService.getCurrentUserCoordinates();
     this.mapData = new MapData(
       currentUserCoordinates ? currentUserCoordinates.longitude : Constants.DEFAULT_CENTER_LONGITUDE,
       currentUserCoordinates ? currentUserCoordinates.latitude : Constants.DEFAULT_CENTER_LATITUDE,
       currentUserCoordinates ? 10 : Constants.DEFAULT_MAP_ZOOM
     )
+  }
+
+  private applyMapFilter() {
+    this.filteredPets = this.allFoundPets
+      .filter(pet => {
+        return this.filter.status === Constants.FILTER_STATUS.ALL ? true : pet.status === this.filter.status
+      })
+      .filter(pet => {
+        return this.filter.type === Constants.FILTER_TYPE.ALL ? true : pet.type === this.filter.type
+      });
   }
 }

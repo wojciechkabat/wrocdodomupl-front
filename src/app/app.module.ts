@@ -12,7 +12,7 @@ import { ApiService } from "./services/api.service";
 import { HttpClientModule } from "@angular/common/http";
 import { WelcomeComponent } from "./pages/welcome/welcome.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatStepperModule } from "@angular/material";
+import { MatCheckboxModule, MatStepperModule } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { CurrentUserService } from "./services/current-user.service";
@@ -21,6 +21,7 @@ import { PetService } from "./services/pet.service";
 import { PetMapComponent } from "./pages/pet-map/pet-map.component";
 import { PetDetailsSidePanelComponent } from "./components/pet-details-side-panel/pet-details-side-panel.component";
 import { ReportPetModalComponent } from "./components/report-pet-modal/report-pet-modal.component";
+import { FilterModalComponent } from "./components/filter-modal/filter-modal.component";
 
 @NgModule({
   declarations: [
@@ -30,10 +31,12 @@ import { ReportPetModalComponent } from "./components/report-pet-modal/report-pe
     FooterComponent,
     PetMapComponent,
     PetDetailsSidePanelComponent,
-    ReportPetModalComponent
+    ReportPetModalComponent,
+    FilterModalComponent
   ],
   entryComponents: [
-    ReportPetModalComponent
+    ReportPetModalComponent,
+    FilterModalComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ import { ReportPetModalComponent } from "./components/report-pet-modal/report-pe
     HttpClientModule,
     BrowserAnimationsModule,
     MatStepperModule,
+    MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
     AgmJsMarkerClustererModule

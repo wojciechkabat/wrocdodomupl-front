@@ -13,7 +13,7 @@
     <agm-marker-cluster
       imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
       <agm-marker
-        *ngFor="let pet of pets"
+        *ngFor="let pet of filteredPets"
         (markerClick)="petSelected(pet)"
         [iconUrl]="resolvePinIcon(pet)"
         [latitude]="pet.coordinates.latitude"
@@ -24,7 +24,7 @@
 
   <div #filterButton
     class="fab-toggle d-flex align-items-center justify-content-center"
-    (click)="onClick.emit($event)">
+    (click)="filterButtonClicked()">
     <fa-icon [icon]="faFilter" size="2x" class="mt-3"></fa-icon>
     <ng-content></ng-content>
   </div>

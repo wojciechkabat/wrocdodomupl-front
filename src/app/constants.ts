@@ -14,6 +14,18 @@ export class Constants {
     FOUND: 'FOUND'
   };
 
+  public static FILTER_TYPE = {
+    DOG: 'DOG',
+    CAT: 'CAT',
+    ALL: 'ALL'
+  };
+
+  public static FILTER_STATUS = {
+    LOST: 'LOST',
+    FOUND: 'FOUND',
+    ALL: 'ALL'
+  };
+
   public static PICTURE_UPLOAD_ENDPOINT='https://api.cloudinary.com/v1_1/wrocdodomucloud/image/upload';
   public static DEFAULT_CENTER_LONGITUDE = 19.25;
   public static DEFAULT_CENTER_LATITUDE = 52.06;
