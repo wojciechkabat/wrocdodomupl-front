@@ -89,15 +89,10 @@ export class PetMapComponent implements OnInit {
       if (savedPet) {
         this.allFoundPets.push(savedPet);
         this.petSelected(savedPet);
+        this.resetMapFilter();
         this.recenterMapToPosition(savedPet.coordinates);
       }
     });
-  }
-
-  recenterMapToPosition(coordinates: Coordinates) {
-    this.mapData.centerLongitude = coordinates.longitude;
-    this.mapData.centerLatitude = coordinates.latitude;
-    this.mapData.zoom = 15;
   }
 
   mapReady(map): void {
@@ -131,6 +126,17 @@ export class PetMapComponent implements OnInit {
       currentUserCoordinates ? currentUserCoordinates.latitude : Constants.DEFAULT_CENTER_LATITUDE,
       currentUserCoordinates ? 10 : Constants.DEFAULT_MAP_ZOOM
     )
+  }
+
+  private recenterMapToPosition(coordinates: Coordinates) {
+    this.mapData.centerLongitude = coordinates.longitude;
+    this.mapData.centerLatitude = coordinates.latitude;
+    this.mapData.zoom = 15;
+  }
+
+  private resetMapFilter() {
+    this.filter = new Filter();
+    this.applyMapFilter();
   }
 
   private applyMapFilter() {
