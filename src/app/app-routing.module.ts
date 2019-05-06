@@ -4,8 +4,9 @@ import { WelcomeComponent } from "./pages/welcome/welcome.component";
 import { PetMapComponent } from "./pages/pet-map/pet-map.component";
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent },
-  { path: 'lost', component: PetMapComponent }
+  { path: '', component: PetMapComponent },
+  { path: 'confirmation', component: PetMapComponent },
+  { path: 'lost', component: WelcomeComponent }
 ];
 
 @NgModule({

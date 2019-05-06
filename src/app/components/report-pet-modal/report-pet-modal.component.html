@@ -1,16 +1,20 @@
 <div class="modal-header" [ngClass]="resolveModalHeaderColor()">
-  <div [ngSwitch]="petDataForm.getRawValue().status">
+  <div *ngIf="!isPersisted" [ngSwitch]="petDataForm.getRawValue().status">
     <h4 class="modal-title" *ngSwitchDefault>Wybierz typ zgłoszenia</h4>
     <h4 class="modal-title" *ngSwitchCase="'LOST'">Zgłoś zaginięcie</h4>
     <h4 class="modal-title" *ngSwitchCase="'FOUND'">Zgłoś znalezienie</h4>
   </div>
 
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+  <div *ngIf="isPersisted">
+    <h4 class="modal-title">Gratulacje!</h4>
+  </div>
+
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
     <span aria-hidden="true" style="color: white; font-size: 2rem">&times;</span>
   </button>
 </div>
 <div class="modal-body">
-  <mat-horizontal-stepper [linear]="true" #stepper>
+  <mat-horizontal-stepper [linear]="true" #stepper [hidden]="isPersisted">
     <mat-step>
       <ng-template matStepLabel>Typ</ng-template>
 
@@ -129,7 +133,7 @@
           <fa-icon [icon]="faCalendarAlt" class="vertical-column-align" size="lg"></fa-icon>
         </div>
         <div class="col">
-          <input type="date" [ngModel]="lostPet.lastSeen | date:'yyyy-MM-dd'"
+          <input type="date" [ngModel]="pet.lastSeen | date:'yyyy-MM-dd'"
                  (ngModelChange)="assignDateFromString($event)" class="form-control"/>
         </div>
       </div>
@@ -150,7 +154,7 @@
       </div>
       <div class="mt-2">
         <button type="button" class="btn form-button fa-pull-left" matStepperPrevious>Wstecz</button>
-        <button type="button" class="btn form-button fa-pull-right" [disabled]="!lostPet.lastSeen" matStepperNext>
+        <button type="button" class="btn form-button fa-pull-right" [disabled]="!pet.lastSeen" matStepperNext>
           Dalej
         </button>
       </div>
@@ -160,7 +164,8 @@
       <ng-template matStepLabel>Zdjęcia</ng-template>
 
       <p *ngIf="petDataForm.getRawValue().status === 'LOST'">Dodaj maksymalnie 3 zdjęcia, aby ułatwić poszukiwania: </p>
-      <p *ngIf="petDataForm.getRawValue().status === 'FOUND'">Dodaj maksymalnie 3 zdjęcia, aby ułatwić identyfikację zwierzaka: </p>
+      <p *ngIf="petDataForm.getRawValue().status === 'FOUND'">Dodaj maksymalnie 3 zdjęcia, aby ułatwić identyfikację
+        zwierzaka: </p>
 
       <div class="row loaded-pic-row" *ngFor="let picture of loadedPictures; let i = index">
         <div class="col-1 col-md-1 vertical-align">
@@ -207,5 +212,24 @@
       </div>
     </mat-step>
   </mat-horizontal-stepper>
+
+  <div [hidden]="!isPersisted">
+    <div>Gratulacje! Twoje ogłoszenie zostało zgłoszone do publikacji.</div>
+
+    <div class="mt-3">
+      Na adres <b>{{petDataForm.controls['email'].value}}</b> wysłaliśmy wiadomość z linkiem potwierdzającym publikację
+      ogłoszenia.
+      Po jego kliknięciu stanie się ono widoczne dla wszystkich.
+    </div>
+
+    <div class="row mt-3">
+      <div class="col col-12 text-center">
+        <button type="button" class="btn form-button"
+                (click)="activeModal.close()">
+          Zakończ
+        </button>
+      </div>
+    </div>
+  </div>
 
 </div>

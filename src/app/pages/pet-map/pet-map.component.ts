@@ -11,6 +11,8 @@ import { PetService } from "../../services/pet.service";
 import { ReportPetModalComponent } from "../../components/report-pet-modal/report-pet-modal.component";
 import { FilterModalComponent } from "../../components/filter-modal/filter-modal.component";
 import { Filter } from "../../models/Filter";
+import { ActivatedRoute } from "@angular/router";
+import { PopupService } from "../../services/popup.service";
 
 @Component({
   selector: 'app-pet-map',
@@ -37,10 +39,16 @@ export class PetMapComponent implements OnInit {
 
   constructor(private currentUserService: CurrentUserService,
               private modalService: NgbModal,
+              private route: ActivatedRoute,
+              private popupService: PopupService,
               private petService: PetService) {
   }
 
   ngOnInit(): void {
+    if (this.route.snapshot.url[0] && this.route.snapshot.url[0].path === 'confirmation') {
+      this.processPetConfirmation();
+    }
+
     this.filter = new Filter();
     this.initializeMap();
     this.initializePets();
@@ -80,18 +88,10 @@ export class PetMapComponent implements OnInit {
   }
 
   openAddDialog(): void {
-    const modalRef = this.modalService.open(ReportPetModalComponent, {
-      backdrop : 'static',
-      keyboard : false,
+  this.modalService.open(ReportPetModalComponent, {
+      backdrop: 'static',
+      keyboard: false,
       windowClass: "add-pet-modal"
-    });
-    modalRef.result.then((savedPet: Pet) => {
-      if (savedPet) {
-        this.allFoundPets.push(savedPet);
-        this.petSelected(savedPet);
-        this.resetMapFilter();
-        this.recenterMapToPosition(savedPet.coordinates);
-      }
     });
   }
 
@@ -109,8 +109,8 @@ export class PetMapComponent implements OnInit {
 
   filterButtonClicked(): void {
     const modalRef = this.modalService.open(FilterModalComponent, {
-      backdrop : 'static',
-      keyboard : false,
+      backdrop: 'static',
+      keyboard: false,
       windowClass: "filter-modal"
     });
     modalRef.componentInstance.filter = this.filter;
@@ -146,6 +146,23 @@ export class PetMapComponent implements OnInit {
       })
       .filter(pet => {
         return this.filter.type === Constants.FILTER_TYPE.ALL ? true : pet.type === this.filter.type
+      });
+  }
+
+  private processPetConfirmation() {
+    const confirmationToken = this.route.snapshot.queryParams['token'];
+    const confirmingModal = this.popupService.openLoadingModal(Constants.MESSAGES.CONFIRMATION_TITLE, Constants.MESSAGES.CONFIRMATION_MESSAGE);
+    this.petService.confirmPet(confirmationToken)
+      .subscribe((pet) => {
+        this.allFoundPets.push(pet);
+        this.resetMapFilter();
+        confirmingModal.close();
+        this.petSelected(pet);
+        this.recenterMapToPosition(pet.coordinates);
+      }, (error) => {
+        console.error(error);
+        confirmingModal.close();
+        this.popupService.displayErrorModal(Constants.MESSAGES.CONFIRMATION_ERROR_MESSAGE)
       });
   }
 }

@@ -22,6 +22,9 @@ import { PetMapComponent } from "./pages/pet-map/pet-map.component";
 import { PetDetailsSidePanelComponent } from "./components/pet-details-side-panel/pet-details-side-panel.component";
 import { ReportPetModalComponent } from "./components/report-pet-modal/report-pet-modal.component";
 import { FilterModalComponent } from "./components/filter-modal/filter-modal.component";
+import { PopupService } from "./services/popup.service";
+import { LoadingModalComponent } from "./components/loading-modal/loading-modal.component";
+import { ErrorModalComponent } from "./components/error-modal/error-modal.component";
 
 @NgModule({
   declarations: [
@@ -32,11 +35,15 @@ import { FilterModalComponent } from "./components/filter-modal/filter-modal.com
     PetMapComponent,
     PetDetailsSidePanelComponent,
     ReportPetModalComponent,
-    FilterModalComponent
+    FilterModalComponent,
+    LoadingModalComponent,
+    ErrorModalComponent
   ],
   entryComponents: [
     ReportPetModalComponent,
-    FilterModalComponent
+    FilterModalComponent,
+    LoadingModalComponent,
+    ErrorModalComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +65,8 @@ import { FilterModalComponent } from "./components/filter-modal/filter-modal.com
     ApiService,
     PetService,
     CurrentUserService,
-    PictureUploadService
+    PictureUploadService,
+    PopupService
   ],
   bootstrap: [AppComponent]
 })

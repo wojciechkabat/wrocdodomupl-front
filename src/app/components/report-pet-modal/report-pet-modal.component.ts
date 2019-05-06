@@ -37,7 +37,7 @@ export class ReportPetModalComponent implements OnInit {
   loadedPictures: Picture[] = [];
   isDataLoading: boolean;
 
-  lostPet: Pet;
+  pet: Pet;
 
   faPaw = faPaw;
   faCamera = faCamera;
@@ -52,6 +52,7 @@ export class ReportPetModalComponent implements OnInit {
   faDog = faDog;
 
   mapData: MapData;
+  isPersisted = false;
 
   constructor(private _formBuilder: FormBuilder,
               private lostPetService: PetService,
@@ -62,11 +63,11 @@ export class ReportPetModalComponent implements OnInit {
 
   ngOnInit() {
     this.initializeMap();
-    this.lostPet = new Pet();
-    this.lostPet.lastSeen = new Date();
+    this.pet = new Pet();
+    this.pet.lastSeen = new Date();
 
     this.agmMap.mapReady.subscribe(() => {
-      this.lostPet.coordinates = new Coordinates(this.agmMap.longitude, this.agmMap.latitude);
+      this.pet.coordinates = new Coordinates(this.agmMap.longitude, this.agmMap.latitude);
     });
 
     this.petDataForm = this._formBuilder.group({
@@ -81,17 +82,17 @@ export class ReportPetModalComponent implements OnInit {
   }
 
   mapMoved(event) {
-    this.lostPet.coordinates.longitude = event.lng;
-    this.lostPet.coordinates.latitude = event.lat;
+    this.pet.coordinates.longitude = event.lng;
+    this.pet.coordinates.latitude = event.lat;
   }
 
   isReadyToSave() {
-    return this.petDataForm.valid && this.lostPet.lastSeen && this.lostPet.coordinates.latitude && this.lostPet.coordinates.longitude && this.loadedPictures.length > 0;
+    return this.petDataForm.valid && this.pet.lastSeen && this.pet.coordinates.latitude && this.pet.coordinates.longitude && this.loadedPictures.length > 0;
   }
 
   assignDateFromString(dateString: string) {
     if (dateString) {
-      this.lostPet.lastSeen = new Date(dateString)
+      this.pet.lastSeen = new Date(dateString)
     }
   }
 
@@ -124,18 +125,18 @@ export class ReportPetModalComponent implements OnInit {
 
       this.pictureUploadService.uploadPictures(this.loadedPictures).subscribe((pictures: PictureDto[]) => {
         const formData = this.petDataForm.getRawValue();
-        this.lostPet.name = formData.name;
-        this.lostPet.type = formData.type;
-        this.lostPet.gender = formData.gender;
-        this.lostPet.phoneNumber = formData.phoneNumber;
-        this.lostPet.email = formData.email;
-        this.lostPet.status = formData.status;
-        this.lostPet.additionalInfo = formData.additionalInfo;
-        this.lostPet.pictures = pictures;
+        this.pet.name = formData.name;
+        this.pet.type = formData.type;
+        this.pet.gender = formData.gender;
+        this.pet.phoneNumber = formData.phoneNumber;
+        this.pet.email = formData.email;
+        this.pet.status = formData.status;
+        this.pet.additionalInfo = formData.additionalInfo;
+        this.pet.pictures = pictures;
 
-        this.lostPetService.persistPet(this.lostPet).subscribe((savedPet: Pet) => {
+        this.lostPetService.persistPet(this.pet).subscribe(() => {
           this.isDataLoading = false;
-          this.activeModal.close(savedPet);
+          this.isPersisted = true;
         })
       })
     }
