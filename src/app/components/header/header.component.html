@@ -11,14 +11,9 @@
 
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav ml-auto">
-      <div class="row">
-        <div class="col-6 text-center">
-          <a class="nav-link" [routerLinkActive]="['active']" routerLink="lost">ZAGINIONE</a>
-        </div>
-        <div class="col-6 text-center">
-          <a class="nav-link" [routerLinkActive]="['active']" href="#">ZNALEZIONE</a>
-        </div>
-      </div>
+      <a class="nav-link" [routerLinkActive]="['active']" routerLink="lost">DODAJ OGŁOSZENIE</a>
+      <a class="nav-link" [routerLinkActive]="['active']" href="#">REGULAMIN</a>
+      <a class="nav-link" [routerLinkActive]="['active']" href="#">KONTAKT</a>
     </ul>
   </div>
 </nav>

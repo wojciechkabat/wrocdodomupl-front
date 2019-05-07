@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { LoadingModalComponent } from "../components/loading-modal/loading-modal.component";
 import { ErrorModalComponent } from "../components/error-modal/error-modal.component";
+import { MatSnackBar } from "@angular/material";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PopupService {
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private snackBar: MatSnackBar) { }
 
   openLoadingModal(title: string, message: string): NgbModalRef {
     const modalRef = this.modalService.open(LoadingModalComponent, {
@@ -30,5 +31,12 @@ export class PopupService {
     });
     modalRef.componentInstance.message = message;
     return modalRef;
+  }
+
+  displayToast(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3500,
+      panelClass: ['success-toast']
+    });
   }
 }

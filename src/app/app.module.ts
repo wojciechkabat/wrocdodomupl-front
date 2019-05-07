@@ -12,7 +12,7 @@ import { ApiService } from "./services/api.service";
 import { HttpClientModule } from "@angular/common/http";
 import { WelcomeComponent } from "./pages/welcome/welcome.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatCheckboxModule, MatStepperModule } from "@angular/material";
+import { MatCheckboxModule, MatSnackBar, MatSnackBarModule, MatStepperModule } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { CurrentUserService } from "./services/current-user.service";
@@ -57,6 +57,7 @@ import { ErrorModalComponent } from "./components/error-modal/error-modal.compon
     BrowserAnimationsModule,
     MatStepperModule,
     MatCheckboxModule,
+    MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
     AgmJsMarkerClustererModule

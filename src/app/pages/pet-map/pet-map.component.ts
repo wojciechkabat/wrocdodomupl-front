@@ -88,7 +88,7 @@ export class PetMapComponent implements OnInit {
   }
 
   openAddDialog(): void {
-  this.modalService.open(ReportPetModalComponent, {
+    this.modalService.open(ReportPetModalComponent, {
       backdrop: 'static',
       keyboard: false,
       windowClass: "add-pet-modal"
@@ -159,6 +159,7 @@ export class PetMapComponent implements OnInit {
         confirmingModal.close();
         this.petSelected(pet);
         this.recenterMapToPosition(pet.coordinates);
+        this.popupService.displayToast("Pomyślnie potwierdzono dodanie ogłoszenia!", "OK")
       }, (error) => {
         console.error(error);
         confirmingModal.close();
