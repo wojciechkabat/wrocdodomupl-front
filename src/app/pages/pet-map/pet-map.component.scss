@@ -157,3 +157,14 @@ agm-map {
 .fab-toggle:hover {
   transform: scale(1.2, 1.2) translate3d(0, 0, 0);
 }
+
+.custom-filter-warning-icon {
+  background-color: white;
+  color: black;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}

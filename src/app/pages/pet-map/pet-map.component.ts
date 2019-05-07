@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Pet } from "../../models/Pet";
 import { Coordinates } from "../../models/Coordinates";
-import { faPlusCircle, faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faFilter, faExclamation } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AgmMap } from "@agm/core";
 import { Constants } from "../../constants";
@@ -32,6 +32,7 @@ export class PetMapComponent implements OnInit {
 
   faPlusCircle = faPlusCircle;
   faFilter = faFilter;
+  faExclamation = faExclamation;
 
   @ViewChild('lostPetInfoSidePanel') lostPetInfoSidePanel;
   @ViewChild('addPetButton') addPetButton;
@@ -117,6 +118,10 @@ export class PetMapComponent implements OnInit {
     modalRef.result.then(() => {
       this.applyMapFilter();
     })
+  }
+
+  isCustomFilterApplied() {
+    return !(this.filter.status === Constants.FILTER_STATUS.ALL && this.filter.type === Constants.FILTER_TYPE.ALL);
   }
 
   private initializeMap(): void {

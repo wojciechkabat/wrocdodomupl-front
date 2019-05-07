@@ -26,7 +26,9 @@
     class="fab-toggle d-flex align-items-center justify-content-center"
     (click)="filterButtonClicked()">
     <fa-icon [icon]="faFilter" size="2x" class="mt-3"></fa-icon>
-    <ng-content></ng-content>
+    <div *ngIf="isCustomFilterApplied()" class="custom-filter-warning-icon d-flex align-items-center justify-content-center">
+      <fa-icon [icon]="faExclamation" size="xs"></fa-icon>
+    </div>
   </div>
 
   <div #lostPetInfoSidePanel class="sidepanel">
