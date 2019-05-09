@@ -10,7 +10,6 @@ import { AgmCoreModule } from "@agm/core";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { ApiService } from "./services/api.service";
 import { HttpClientModule } from "@angular/common/http";
-import { WelcomeComponent } from "./pages/welcome/welcome.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatCheckboxModule, MatSnackBar, MatSnackBarModule, MatStepperModule } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -25,11 +24,12 @@ import { FilterModalComponent } from "./components/filter-modal/filter-modal.com
 import { PopupService } from "./services/popup.service";
 import { LoadingModalComponent } from "./components/loading-modal/loading-modal.component";
 import { ErrorModalComponent } from "./components/error-modal/error-modal.component";
+import { RulesComponent } from './pages/rules/rules.component';
+import { AboutComponent } from './pages/about/about.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeComponent,
     HeaderComponent,
     FooterComponent,
     PetMapComponent,
@@ -37,7 +37,9 @@ import { ErrorModalComponent } from "./components/error-modal/error-modal.compon
     ReportPetModalComponent,
     FilterModalComponent,
     LoadingModalComponent,
-    ErrorModalComponent
+    ErrorModalComponent,
+    RulesComponent,
+    AboutComponent
   ],
   entryComponents: [
     ReportPetModalComponent,

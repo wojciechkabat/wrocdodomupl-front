@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand logo-wrapper" href="#">
+  <a class="navbar-brand logo-wrapper" routerLink="">
     <img class="logo-pic" src="../../../assets/img/logo_yellow.png"/>
     <div class="logo-name">wrocdodomu.pl</div>
   </a>
@@ -11,9 +11,8 @@
 
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav ml-auto">
-      <a class="nav-link" [routerLinkActive]="['active']" routerLink="lost">DODAJ OGŁOSZENIE</a>
-      <a class="nav-link" [routerLinkActive]="['active']" href="#">REGULAMIN</a>
-      <a class="nav-link" [routerLinkActive]="['active']" href="#">KONTAKT</a>
+      <a class="nav-link" [routerLinkActive]="['active']" routerLink="rules">REGULAMIN</a>
+      <a class="nav-link" [routerLinkActive]="['active']" routerLink="about">O NAS</a>
     </ul>
   </div>
 </nav>
