@@ -66,6 +66,7 @@ export class Constants {
   public static MESSAGES = {
     CONFIRMATION_ERROR_MESSAGE: "Nie udało się potwierdzić dodania ogłoszenia. Być może ogłoszenie zostało już wcześniej potwierdzone. W innym przypadku, sprawdź czy link jest prawidłowy.",
     CONFIRMATION_TITLE: "Trwa potwierdzanie",
-    CONFIRMATION_MESSAGE: "Trwa potwierdzanie dodania zwierzaka. Może to zająć krótką chwilę..."
+    CONFIRMATION_MESSAGE: "Trwa potwierdzanie dodania zwierzaka. Może to zająć krótką chwilę...",
+    DELETE_ERROR_MESSAGE: "Nie udało się usunąć ogłoszenia. Być może zostało już wcześniej usunięte. W innym przypadku sprawdź, czy link jest prawidłowy.",
   }
 }

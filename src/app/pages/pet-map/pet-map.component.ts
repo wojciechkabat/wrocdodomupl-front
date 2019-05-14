@@ -50,6 +50,10 @@ export class PetMapComponent implements OnInit {
       this.processPetConfirmation();
     }
 
+    if (this.route.snapshot.url[0] && this.route.snapshot.url[0].path === 'delete') {
+      this.processPetDelete();
+    }
+
     this.filter = new Filter();
     this.initializeMap();
     this.initializePets();
@@ -170,5 +174,21 @@ export class PetMapComponent implements OnInit {
         confirmingModal.close();
         this.popupService.displayErrorModal(Constants.MESSAGES.CONFIRMATION_ERROR_MESSAGE)
       });
+  }
+
+  private processPetDelete() {
+    const deleteToken = this.route.snapshot.queryParams['token'];
+    this.popupService.displayConfirmModal("Potwierdź usunięcie", "Czy na pewno chcesz usunąć swoje ogłoszenie?").result
+      .then(() => {
+        this.petService.deletePet(deleteToken)
+          .subscribe((deletedPet) => {
+            this.allFoundPets.splice(this.allFoundPets.findIndex(pet => pet.id === deletedPet.id), 1);
+            this.resetMapFilter();
+            this.popupService.displayToast("Pomyślnie usunięto ogłoszenie.", "OK")
+          }, (error) => {
+            console.error(error);
+            this.popupService.displayErrorModal(Constants.MESSAGES.DELETE_ERROR_MESSAGE)
+          });
+      })
   }
 }

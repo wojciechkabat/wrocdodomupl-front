@@ -7,6 +7,7 @@ import { AboutComponent } from "./pages/about/about.component";
 const routes: Routes = [
   { path: '', component: PetMapComponent },
   { path: 'confirmation', component: PetMapComponent },
+  { path: 'delete', component: PetMapComponent },
   { path: 'rules', component: RulesComponent },
   { path: 'about', component: AboutComponent }
 ];

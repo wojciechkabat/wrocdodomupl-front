@@ -26,6 +26,7 @@ import { LoadingModalComponent } from "./components/loading-modal/loading-modal.
 import { ErrorModalComponent } from "./components/error-modal/error-modal.component";
 import { RulesComponent } from './pages/rules/rules.component';
 import { AboutComponent } from './pages/about/about.component';
+import { ConfirmModalComponent } from "./components/confirm-modal/confirm-modal.component";
 
 @NgModule({
   declarations: [
@@ -39,13 +40,15 @@ import { AboutComponent } from './pages/about/about.component';
     LoadingModalComponent,
     ErrorModalComponent,
     RulesComponent,
-    AboutComponent
+    AboutComponent,
+    ConfirmModalComponent
   ],
   entryComponents: [
     ReportPetModalComponent,
     FilterModalComponent,
     LoadingModalComponent,
-    ErrorModalComponent
+    ErrorModalComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,

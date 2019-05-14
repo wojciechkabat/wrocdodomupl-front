@@ -28,4 +28,12 @@ export class PetService {
       return throwError("Incorrect format of UUID");
     }
   }
+
+  deletePet(deleteToken: string): Observable<Pet> {
+    if(this.UUID_REGEX.test(deleteToken)) {
+      return this.apiService.deleteHttp(`pets/delete?token=${deleteToken}`)
+    } else {
+      return throwError("Incorrect format of UUID");
+    }
+  }
 }
