@@ -1,12 +1,12 @@
 import { Constants } from "../constants";
 
 export class Filter {
-  status: string;
-  type: string;
+  statuses: string[];
+  types: string[];
 
 
   constructor() {
-    this.status = Constants.FILTER_STATUS.ALL;
-    this.type = Constants.FILTER_TYPE.ALL;
+    this.statuses = [Constants.FILTER_STATUS.FOUND, Constants.FILTER_STATUS.LOST, Constants.FILTER_STATUS.TO_GIVE];
+    this.types = [Constants.FILTER_TYPE.CAT, Constants.FILTER_TYPE.DOG];
   }
 }

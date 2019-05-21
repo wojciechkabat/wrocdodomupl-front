@@ -32,6 +32,21 @@ export class PetDetailsSidePanelComponent implements OnInit {
         return 'Samica';
       case Constants.GENDER.UNKNOWN:
         return 'Nieznana płeć';
+      case Constants.GENDER.BOTH:
+        return 'Różne płci'
+    }
+  }
+
+  resolveSidePanelHeaderColor(status: string): string {
+    switch (status) {
+      case Constants.PET_STATUS.LOST:
+        return 'lost';
+      case Constants.PET_STATUS.FOUND:
+        return 'found';
+      case Constants.PET_STATUS.TO_GIVE:
+        return 'to-give';
+      default:
+        return 'no-status';
     }
   }
 

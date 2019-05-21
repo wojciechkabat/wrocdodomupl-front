@@ -1,6 +1,7 @@
-<div class="sidePanelTitle vertical-align" [ngClass]="pet.status === 'LOST'? 'lost' : 'found'">
+<div class="sidePanelTitle vertical-align" [ngClass]="resolveSidePanelHeaderColor(pet.status)">
   <div *ngIf="pet.status === 'LOST'">Zaginiony {{pet.type === 'DOG' ? 'pies' : 'kot'}}</div>
   <div *ngIf="pet.status === 'FOUND'">Znaleziony {{pet.type === 'DOG' ? 'pies' : 'kot'}}</div>
+  <div *ngIf="pet.status === 'TO_GIVE'">{{pet.type === 'DOG' ? 'Pies' : 'Kot'}} do oddania</div>
 </div>
 <div class="sidePanelContent">
   <div class="pet-pictures-container">
@@ -64,7 +65,7 @@
   </div>
 
 
-  <div class="row pet-detail">
+  <div class="row pet-detail" *ngIf="pet.status === 'LOST' || pet.status === 'FOUND'">
     <div class="col col-2 text-center">
       <fa-icon [icon]="faCalendarAlt" size="lg"></fa-icon>
     </div>

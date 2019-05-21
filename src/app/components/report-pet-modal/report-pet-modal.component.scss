@@ -10,6 +10,10 @@
     background-image: linear-gradient(to right top, #1aaa67, #0ca56d, #01a172, #009c76, #27ae60);
   }
 
+  &.to-give {
+    background-image: linear-gradient(to right top, #f39c12, #f79d2a, #fa9f3a, #fda148, #ffa355);
+  }
+
   &.no-status {
     background-color: #353942;
   }
@@ -79,7 +83,7 @@ agm-map {
 .status-choice-button {
   margin: 10px 0;
   height: 50px;
-  width: 280px;
+  width: 300px;
   color: white;
   border-radius: 30px;
   font-size: 1.1rem;
@@ -91,6 +95,10 @@ agm-map {
 
   &.found {
     background-image: linear-gradient(to right top, #1aaa67, #0ca56d, #01a172, #009c76, #27ae60);
+  }
+
+  &.to-give {
+    background-image: linear-gradient(to right top, #f39c12, #f79d2a, #fa9f3a, #fda148, #ffa355);
   }
 
   .status-button-text {

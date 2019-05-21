@@ -3,7 +3,8 @@ export class Constants {
   public static GENDER = {
     MALE: 'MALE',
     FEMALE: 'FEMALE',
-    UNKNOWN: 'UNKNOWN'
+    UNKNOWN: 'UNKNOWN',
+    BOTH: 'BOTH'
   };
   public static PET_TYPE = {
     DOG: 'DOG',
@@ -11,19 +12,19 @@ export class Constants {
   };
   public static PET_STATUS = {
     LOST: 'LOST',
-    FOUND: 'FOUND'
+    FOUND: 'FOUND',
+    TO_GIVE: 'TO_GIVE'
   };
 
   public static FILTER_TYPE = {
     DOG: 'DOG',
-    CAT: 'CAT',
-    ALL: 'ALL'
+    CAT: 'CAT'
   };
 
   public static FILTER_STATUS = {
     LOST: 'LOST',
     FOUND: 'FOUND',
-    ALL: 'ALL'
+    TO_GIVE: 'TO_GIVE'
   };
 
   public static PICTURE_UPLOAD_ENDPOINT='https://api.cloudinary.com/v1_1/wrocdodomucloud/image/upload';
@@ -47,6 +48,15 @@ export class Constants {
     }
   };
 
+
+  public static TO_GIVE_DOG_PIN_ICON = {
+    url: '../../assets/img/to_give_dog_pin.png',
+    scaledSize: {
+      width: 30,
+      height: 50
+    }
+  };
+
   public static LOST_CAT_PIN_ICON = {
     url: '../../assets/img/lost_cat_pin.png',
     scaledSize: {
@@ -57,6 +67,14 @@ export class Constants {
 
   public static FOUND_CAT_PIN_ICON = {
     url: '../../assets/img/found_cat_pin.png',
+    scaledSize: {
+      width: 30,
+      height: 50
+    }
+  };
+
+  public static TO_GIVE_CAT_PIN_ICON = {
+    url: '../../assets/img/to_give_cat_pin.png',
     scaledSize: {
       width: 30,
       height: 50

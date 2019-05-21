@@ -1,19 +1,19 @@
 .pet-pictures-container {
   width: 100%;
-  height: 300px;
+  height: 250px;
   margin-bottom: 20px;
 
   img {
     width: 100%;
-    height: 300px;
+    height: 250px;
     object-fit: cover;
   }
 }
 
 .sidePanelTitle {
-  height: 71px;
+  height: 55px;
   width: 100%;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   padding-left: 20px;
 
   &.lost {
@@ -23,10 +23,14 @@
   &.found {
     background-image: linear-gradient(to right top, #1aaa67, #0ca56d, #01a172, #009c76, #27ae60);
   }
+
+  &.to-give {
+    background-image: linear-gradient(to right top, #f39c12, #f79d2a, #fa9f3a, #fda148, #ffa355);
+  }
 }
 
 .sidePanelContent {
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .pet-detail {

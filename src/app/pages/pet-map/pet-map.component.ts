@@ -107,6 +107,8 @@ export class PetMapComponent implements OnInit {
   resolvePinIcon(pet: Pet) {
     if (pet.status === Constants.PET_STATUS.LOST) {
       return pet.type === Constants.PET_TYPE.DOG ? Constants.LOST_DOG_PIN_ICON : Constants.LOST_CAT_PIN_ICON;
+    } else if (pet.status === Constants.PET_STATUS.TO_GIVE) {
+      return pet.type === Constants.PET_TYPE.DOG ? Constants.TO_GIVE_DOG_PIN_ICON : Constants.TO_GIVE_CAT_PIN_ICON;
     } else {
       return pet.type === Constants.PET_TYPE.DOG ? Constants.FOUND_DOG_PIN_ICON : Constants.FOUND_CAT_PIN_ICON;
     }
@@ -150,12 +152,8 @@ export class PetMapComponent implements OnInit {
 
   private applyMapFilter() {
     this.filteredPets = this.allFoundPets
-      .filter(pet => {
-        return this.filter.status === Constants.FILTER_STATUS.ALL ? true : pet.status === this.filter.status
-      })
-      .filter(pet => {
-        return this.filter.type === Constants.FILTER_TYPE.ALL ? true : pet.type === this.filter.type
-      });
+      .filter(pet => this.filter.statuses.includes(pet.status))
+      .filter(pet => this.filter.types.includes(pet.type));
   }
 
   private processPetConfirmation() {

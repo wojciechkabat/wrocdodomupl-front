@@ -13,7 +13,8 @@ import {
   faTrash,
   faCamera,
   faSearch,
-  faDog
+  faDog,
+  faHandsHelping
 } from '@fortawesome/free-solid-svg-icons';
 import { Pet } from "../../models/Pet";
 import { Coordinates } from "../../models/Coordinates";
@@ -50,6 +51,7 @@ export class ReportPetModalComponent implements OnInit {
   faCalendarAlt = faCalendarAlt;
   faSearch = faSearch;
   faDog = faDog;
+  faHandsHelping = faHandsHelping;
 
   mapData: MapData;
   isPersisted = false;
@@ -152,6 +154,8 @@ export class ReportPetModalComponent implements OnInit {
         return 'lost';
       case Constants.PET_STATUS.FOUND:
         return 'found';
+      case Constants.PET_STATUS.TO_GIVE:
+        return 'to-give';
       default:
         return 'no-status';
     }

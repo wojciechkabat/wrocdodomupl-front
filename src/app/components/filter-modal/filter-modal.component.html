@@ -17,12 +17,17 @@
       </div>
 
       <div class="row">
-        <mat-checkbox [(ngModel)]="isLostSelected">Zaginione</mat-checkbox>
+        <mat-checkbox [checked]="this.filterCopy.statuses.includes(LOST)" (change)="toggleStatus(LOST)">Zaginione</mat-checkbox>
       </div>
 
       <div class="row">
-        <mat-checkbox [(ngModel)]="isFoundSelected">Znalezione</mat-checkbox>
+        <mat-checkbox [checked]="this.filterCopy.statuses.includes(FOUND)" (change)="toggleStatus(FOUND)">Znalezione</mat-checkbox>
       </div>
+
+      <div class="row">
+        <mat-checkbox [checked]="this.filterCopy.statuses.includes(TO_GIVE)" (change)="toggleStatus(TO_GIVE)">Do oddania</mat-checkbox>
+      </div>
+
     </div>
 
     <div class="col col-6">
@@ -33,11 +38,11 @@
       </div>
 
       <div class="row">
-        <mat-checkbox [(ngModel)]="isDogsSelected">Psy</mat-checkbox>
+        <mat-checkbox [checked]="this.filterCopy.types.includes(DOG)" (change)="toggleType(DOG)">Psy</mat-checkbox>
       </div>
 
       <div class="row">
-        <mat-checkbox [(ngModel)]="isCatsSelected">Koty</mat-checkbox>
+        <mat-checkbox [checked]="this.filterCopy.types.includes(CAT)" (change)="toggleType(CAT)">Koty</mat-checkbox>
       </div>
     </div>
   </div>
