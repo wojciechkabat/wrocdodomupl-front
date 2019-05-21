@@ -24,7 +24,7 @@ export class FilterModalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
-    this.filterCopy = { ...this.filter }
+    this.filterCopy = JSON.parse(JSON.stringify(this.filter)) //deep copy of object
   }
 
   toggleAllStatuses() {

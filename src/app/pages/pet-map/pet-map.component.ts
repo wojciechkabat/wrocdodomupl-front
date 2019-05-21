@@ -127,7 +127,7 @@ export class PetMapComponent implements OnInit {
   }
 
   isCustomFilterApplied() {
-    return !(this.filter.status === Constants.FILTER_STATUS.ALL && this.filter.type === Constants.FILTER_TYPE.ALL);
+    return !(this.filter.statuses.length === 3 && this.filter.types.length === 2);
   }
 
   private initializeMap(): void {

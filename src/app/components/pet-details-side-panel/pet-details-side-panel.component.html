@@ -29,58 +29,64 @@
   </div>
 
   <div class="row pet-detail" *ngIf="pet.name">
-    <div class="col col-2 text-center">
+    <div class="col col-2 text-center d-flex flex-column justify-content-center">
       <fa-icon [icon]="faTag" size="lg"></fa-icon>
     </div>
     <div class="col">
-      {{pet.name}}
+      <div class="field-description">Imię: </div>
+      <div>{{pet.name}}</div>
     </div>
   </div>
 
   <div class="row pet-detail">
-    <div class="col col-2 text-center">
+    <div class="col col-2 text-center d-flex flex-column justify-content-center">
       <fa-icon [icon]="faVenusMars" size="lg"></fa-icon>
     </div>
     <div class="col">
-      {{resolveGender(pet.gender)}}
+      <div class="field-description">Płeć: </div>
+      <div>{{resolveGender(pet.gender)}}</div>
     </div>
   </div>
 
   <div class="row pet-detail" *ngIf="pet.phoneNumber">
-    <div class="col col-2 text-center">
+    <div class="col col-2 text-center d-flex flex-column justify-content-center">
       <fa-icon [icon]="faPhone" size="lg"></fa-icon>
     </div>
     <div class="col">
-      {{pet.phoneNumber}}
+      <div class="field-description">Numer telefonu: </div>
+      <div>{{pet.phoneNumber}}</div>
     </div>
   </div>
 
   <div class="row pet-detail">
-    <div class="col col-2 text-center">
+    <div class="col col-2 text-center d-flex flex-column justify-content-center">
       <fa-icon [icon]="faEnvelope" size="lg"></fa-icon>
     </div>
     <div class="col">
-      {{pet.email}}
+      <div class="field-description">Adres email: </div>
+      <div>{{pet.email}}</div>
     </div>
   </div>
 
 
   <div class="row pet-detail" *ngIf="pet.status === 'LOST' || pet.status === 'FOUND'">
-    <div class="col col-2 text-center">
+    <div class="col col-2 text-center d-flex flex-column justify-content-center">
       <fa-icon [icon]="faCalendarAlt" size="lg"></fa-icon>
     </div>
     <div class="col">
-      <div *ngIf="pet.status === 'LOST'">Ostatnio widziany: {{pet.lastSeen | date: 'd.MM.yyyy'}}</div>
-      <div *ngIf="pet.status === 'FOUND'">Znaleziony: {{pet.lastSeen | date: 'd.MM.yyyy'}}</div>
+      <div class="field-description" *ngIf="pet.status === 'LOST'">Ostatnio widziany: </div>
+      <div class="field-description" *ngIf="pet.status === 'FOUND'">Znaleziony: </div>
+      <div>{{pet.lastSeen | date: 'd.MM.yyyy'}}</div>
     </div>
   </div>
 
   <div class="row pet-detail" *ngIf="pet.additionalInfo">
-    <div class="col col-2 text-center">
+    <div class="col col-2 text-center d-flex flex-column justify-content-center">
       <fa-icon [icon]="faInfo" size="lg"></fa-icon>
     </div>
     <div class="col">
-      {{pet.additionalInfo}}
+      <div class="field-description">Dodatkowe informacje: </div>
+      <div>{{pet.additionalInfo}}</div>
     </div>
   </div>
 
