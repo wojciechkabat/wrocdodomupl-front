@@ -5,7 +5,7 @@
 </div>
 <div class="sidePanelContent">
   <div class="pet-pictures-container">
-    <div *ngIf="pet.pictures.length === 1">
+    <div *ngIf="pet.pictures.length === 1" (click)="openPicturesFullScreen()">
       <img
         (load)="this.isPictureLoaded = true;"
         [hidden]="!isPictureLoaded"
@@ -14,7 +14,7 @@
         [hidden]="isPictureLoaded"
         src="../../../assets/img/spinner2.gif"/>
     </div>
-    <ngb-carousel *ngIf="pet.pictures.length > 1">
+    <ngb-carousel *ngIf="pet.pictures.length > 1" (click)="openPicturesFullScreen()">
       <ng-template ngbSlide *ngFor="let pic of pet.pictures">
         <img
           (load)="this.isPictureLoaded = true;"

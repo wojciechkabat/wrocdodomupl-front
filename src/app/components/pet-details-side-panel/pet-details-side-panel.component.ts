@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Pet } from "../../models/Pet";
 import { faTag, faVenusMars, faInfo, faPhone, faEnvelope, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { Constants } from "../../constants";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { PictureViewerComponent } from "../picture-viewer/picture-viewer.component";
 @Component({
   selector: 'app-pet-details-side-panel',
   templateUrl: './pet-details-side-panel.component.html',
@@ -19,7 +21,7 @@ export class PetDetailsSidePanelComponent implements OnInit {
   faPhone = faPhone;
   faCalendarAlt = faCalendarAlt;
 
-  constructor() { }
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
   }
@@ -50,4 +52,11 @@ export class PetDetailsSidePanelComponent implements OnInit {
     }
   }
 
+  openPicturesFullScreen() {
+    const modalRef = this.modalService.open(PictureViewerComponent, {
+      keyboard: false,
+      windowClass: "picture-viewer-modal"
+    });
+    modalRef.componentInstance.pictures = this.pet.pictures;
+  }
 }

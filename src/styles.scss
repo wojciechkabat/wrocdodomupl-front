@@ -38,6 +38,25 @@
   }
 }
 
+.picture-viewer-modal {
+
+  .modal-dialog {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+    width: 100%;
+    max-width: 700px;
+    min-height: calc(100vh - 60px);
+  }
+  @media (max-width: 600px) {
+    .modal-dialog {
+      min-height: calc(100vh - 20px);
+      margin: 0 !important;
+    }
+  }
+}
+
 .filter-modal {
   .modal-dialog {
     display: flex;
@@ -63,12 +82,12 @@
 }
 
 .carousel-control-next-icon {
-  background-image: url('assets/img/arrow_right.png') !important;
+  background-image: none !important;
   cursor: pointer;
 }
 
 .carousel-control-prev-icon {
-  background-image: url('assets/img/arrow_left.png') !important;
+  background-image: none !important;
   cursor: pointer;
 }
 

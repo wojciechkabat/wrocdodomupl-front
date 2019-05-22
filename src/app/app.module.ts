@@ -27,6 +27,7 @@ import { ErrorModalComponent } from "./components/error-modal/error-modal.compon
 import { RulesComponent } from './pages/rules/rules.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ConfirmModalComponent } from "./components/confirm-modal/confirm-modal.component";
+import { PictureViewerComponent } from "./components/picture-viewer/picture-viewer.component";
 
 @NgModule({
   declarations: [
@@ -41,14 +42,16 @@ import { ConfirmModalComponent } from "./components/confirm-modal/confirm-modal.
     ErrorModalComponent,
     RulesComponent,
     AboutComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    PictureViewerComponent
   ],
   entryComponents: [
     ReportPetModalComponent,
     FilterModalComponent,
     LoadingModalComponent,
     ErrorModalComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    PictureViewerComponent
   ],
   imports: [
     BrowserModule,
