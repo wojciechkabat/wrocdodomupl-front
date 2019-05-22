@@ -19,7 +19,7 @@ export class PictureUploadService {
   uploadPictures(pictures: Picture[]): Observable<PictureDto[]> {
     const pictureUploadObservables: Observable<any>[] = [];
     for (const picture of pictures) {
-      pictureUploadObservables.push(this.uploadPicture(new PictureUploadModel(picture.data, 'pets_tst')))
+      pictureUploadObservables.push(this.uploadPicture(new PictureUploadModel(picture.data, Constants.PICTURES_PRESET)))
     }
     return forkJoin(pictureUploadObservables)
       .pipe(map(uploadData => {
