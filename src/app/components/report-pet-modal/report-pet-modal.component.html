@@ -21,7 +21,7 @@
 
       <div class="row justify-content-center">
         <button type="button" class="btn status-choice-button lost" matStepperNext
-                (click)="this.petDataForm.controls.status.value = 'LOST';">
+                (click)="this.petDataForm.controls.status.setValue('LOST');">
           <fa-icon [icon]="faSearch" size="lg" class="pl-2 fa-pull-left"></fa-icon>
           <div class="status-button-text pl-2 pr-2">Zgłaszam zaginięcie</div>
         </button>
@@ -29,7 +29,7 @@
 
       <div class="row justify-content-center">
         <button type="button" class="btn status-choice-button found" matStepperNext
-                (click)="this.petDataForm.controls.status.value = 'FOUND';">
+                (click)="this.petDataForm.controls.status.setValue('FOUND');">
           <fa-icon [icon]="faDog" size="lg" class="pl-2 fa-pull-left"></fa-icon>
           <div class="status-button-text pl-2 pr-2">Zgłaszam znalezienie</div>
         </button>
@@ -37,7 +37,7 @@
 
       <div class="row justify-content-center">
         <button type="button" class="btn status-choice-button to-give" matStepperNext
-                (click)="this.petDataForm.controls.status.value = 'TO_GIVE';">
+                (click)="this.petDataForm.controls.status.setValue('TO_GIVE');">
           <fa-icon [icon]="faHandsHelping" size="lg" class="pl-2 fa-pull-left"></fa-icon>
           <div class="status-button-text pl-2 pr-2">Zgłaszam do oddania</div>
         </button>
@@ -140,7 +140,7 @@
       <p *ngIf="petDataForm.getRawValue().status === 'FOUND'">Gdzie i kiedy znalazłeś zwierzaka?</p>
       <p *ngIf="petDataForm.getRawValue().status === 'TO_GIVE'">Zaznacz lokalizację, w której znajdują się zwierzaki do oddania</p>
 
-      <div class="row input-field" *ngIf="!petDataForm.getRawValue().status === 'TO_GIVE'">
+      <div class="row input-field" *ngIf="petDataForm.getRawValue().status !== 'TO_GIVE'">
         <div class="col-1 text-center">
           <fa-icon [icon]="faCalendarAlt" class="vertical-column-align" size="lg"></fa-icon>
         </div>
