@@ -54,10 +54,11 @@ import { PictureViewerComponent } from "./components/picture-viewer/picture-view
     PictureViewerComponent
   ],
   imports: [
+
     BrowserModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyC3cX9j_OEkbS4WmGtsfUpkp4GQPebNs7c'
+      apiKey: '//fixme add key'
     }),
     FontAwesomeModule,
     NgbModule.forRoot(),
